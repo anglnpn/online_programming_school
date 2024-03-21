@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "online-programming-school-2"
+version = "0.1.0"
+description = ""
+authors = ["angelina <angln.pnn@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "4.2.10"
+pillow = "^10.2.0"
+psycopg2-binary = "^2.9.9"
+djangorestframework = "^3.14.0"
+python-dotenv = "^1.0.1"
+redis = "^5.0.1"
+django-filter = "^23.5"
+djangorestframework-simplejwt = "^5.3.1"
+coverage = "^7.4.2"
+drf-yasg = "^1.21.7"
+django-cors-headers = "^4.3.1"
+requests = "^2.31.0"
+stripe = "^8.4.0"
+celery = "^5.3.6"
+flake8 = "^7.0.0"
+django-celery-beat = "^2.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
