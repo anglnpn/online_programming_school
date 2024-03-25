@@ -21,8 +21,8 @@ class CourseCreateAPIView(generics.CreateAPIView):
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(author=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class CourseListAPIView(generics.ListAPIView):
@@ -67,6 +67,9 @@ class ModuleCreateAPIView(generics.CreateAPIView):
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class ModuleListAPIView(generics.ListAPIView):
     """
@@ -74,7 +77,7 @@ class ModuleListAPIView(generics.ListAPIView):
     """
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
-    permission_classes = [IsAuthenticated, IsModer]
+    permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
 
 
 class ModuleRetrieveAPIView(generics.RetrieveAPIView):
@@ -151,8 +154,8 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
     permission_classes = [IsAuthenticated, IsModer]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(author=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class LessonListAPIView(generics.ListAPIView):

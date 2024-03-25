@@ -21,7 +21,8 @@ def send_moderator_email(course_id):
     """
     email_list = []
     subscribe = Subscribe.objects.filter(course_id=course_id).all()
-    course = Course.objects.filter(id=course_id, update_date__lt=datetime.utcnow() - timedelta(hours=4))
+    course = Course.objects.filter(
+        id=course_id, update_date__lt=datetime.utcnow() - timedelta(hours=4))
 
     if course:
         for sub in subscribe:

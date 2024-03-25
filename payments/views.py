@@ -3,12 +3,16 @@ from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from materials.models import Course
-from materials.permissions import IsModerPayment, IsContributor
 from materials.services import convert_currencies
+
 from payments.models import Subscribe, Payments
+from payments.permissions import IsModerPayment, IsContributor
 from payments.serializers import PaymentsSerializer, SubscribeSerializer
-from payments.services import create_product, create_price, create_payment_session, get_payment_status
-from users.permissions import IsUser
+from payments.services import (create_product,
+                               create_price,
+                               create_payment_session,
+                               get_payment_status)
+
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -51,8 +55,9 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
         # создание цены продукта в stripe
         amount = create_price(product, course_price)
         # создание сессии оплаты в stripe
-        payment_session = create_payment_session(amount, success_url='https://example.com/success',
-                                                 cancel_url='https://example.com/cancel')
+        payment_session = create_payment_session(
+            amount, success_url='https://example.com/success',
+            cancel_url='https://example.com/cancel')
 
         # Добавляем ссылку на оплату в данные о платеже
         valid_data['payment_session_id'] = payment_session
@@ -61,7 +66,8 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
         self.perform_create(serializer)
 
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class PaymentStatusAPIView(generics.CreateAPIView):
@@ -95,7 +101,8 @@ class PaymentStatusAPIView(generics.CreateAPIView):
             payment_obj.payment_status = 'Неуспешно'
             payment_obj.save()
 
-        return Response({'payment_status': payment_status}, status=status.HTTP_200_OK)
+        return Response(
+            {'payment_status': payment_status}, status=status.HTTP_200_OK)
 
 
 class PaymentsListAPIView(generics.ListAPIView):
@@ -106,7 +113,9 @@ class PaymentsListAPIView(generics.ListAPIView):
     """
     serializer_class = PaymentsSerializer
     queryset = Payments.objects.all()
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend,
+                       filters.SearchFilter,
+                       filters.OrderingFilter]
     filterset_fields = ['payment_course']
     search_fields = ['payment_method']
     ordering_fields = ['payment_date']
@@ -119,7 +128,8 @@ class PaymentsRetrieveAPIView(generics.RetrieveAPIView):
     """
     serializer_class = PaymentsSerializer
     queryset = Payments.objects.all()
-    permission_classes = [IsAuthenticated, IsModerPayment | IsContributor]
+    permission_classes = [IsAuthenticated,
+                          IsModerPayment | IsContributor]
 
 
 class SubscribeCreateAPIView(generics.CreateAPIView):
