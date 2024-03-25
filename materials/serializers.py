@@ -35,7 +35,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['id', 'name_course', 'image',
                   'description', 'author',
-                  'module_count', 'modules', 'price',
+                  'modules_count', 'modules', 'price',
                   'price_course', 'update_date']
 
     def get_modules_count(self, instance):
