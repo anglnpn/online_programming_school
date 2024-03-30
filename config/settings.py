@@ -201,9 +201,9 @@ CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED')
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # Настройки для Celery
-CELERY_BEAT_SCHEDULE = {
-    'task-name': {
-        'task': 'users.tasks.checking_users',  # Путь к задаче
-        'schedule': timedelta(days=1),  # Расписание выполнения задачи (например, каждые 10 минут)
-    },
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'task-name': {
+#         'task': 'users.tasks.checking_users',  # Путь к задаче
+#         'schedule': timedelta(seconds=1),  # Расписание выполнения задачи (например, каждые 10 минут)
+#     },
+# }
