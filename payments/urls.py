@@ -2,8 +2,12 @@ from django.urls import path
 
 from payments.apps import PaymentsConfig
 
-from payments.views import PaymentsListAPIView, SubscribeCreateAPIView, PaymentsCreateAPIView, PaymentStatusAPIView, \
-    PaymentsRetrieveAPIView
+from payments.views import (
+    PaymentsListAPIView,
+    SubscribeCreateAPIView,
+    PaymentsCreateAPIView,
+    PaymentStatusAPIView,
+    PaymentsRetrieveAPIView)
 
 app_name = PaymentsConfig.name
 

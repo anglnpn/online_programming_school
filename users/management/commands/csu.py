@@ -19,5 +19,13 @@ class Command(BaseCommand):
 
         user.set_password('admin123456')
         user.save()
+# модератор контента
+# user@sky.pro
+# user
+# модератор оплат
+# user2@sky.pro
+# user
 
-
+# просто юзер
+# user3@sky.pro
+#  user

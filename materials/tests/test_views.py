@@ -1,26 +1,29 @@
-from rest_framework.test import APITestCase, force_authenticate
+from rest_framework.test import APITestCase
 from rest_framework import status
 
 from materials.models import Course, Lesson, Module
+
 from users.models import User
 
 
 class LessonTestCase(APITestCase):
     """
-    Тест урока.
+    Тест для урока.
     """
 
     def setUp(self) -> None:
+        # Создание объектов для тестирования
         self.user = User.objects.create(
             name='Test', surname='Test', email='test@t.com', is_superuser=True)
         self.course = Course.objects.create(
-            author=self.user, name_course='Course Name', description='Course Description')
+            author=self.user, name_course='Course Name',
+            description='Course Description', price=1000)
         self.module = Module.objects.create(
-            author=self.user, course_id=self.course.id, sequence_number=1,
+            author=self.user, course_id=self.course, sequence_number=1,
             name_module='Module Name', description='Module Description')
         self.lesson = Lesson.objects.create(
             name_lesson='Lesson Name', description='List Description',
-            link='https://my.sky.pro/youtube.com', module_id=self.module.id,
+            link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
 
     def test_create_lesson(self):
@@ -32,6 +35,7 @@ class LessonTestCase(APITestCase):
             'description': 'Test',
             'link': 'https://my.sky.pro/youtube.com',
             'module_id': self.module.id,
+            'content': 'Test content',
             'author': self.user.id
         }
         self.client.force_authenticate(user=self.user)
@@ -51,6 +55,7 @@ class LessonTestCase(APITestCase):
         """
         Тестирование просмотра списка уроков
         """
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
             '/lesson/'
@@ -66,7 +71,6 @@ class LessonTestCase(APITestCase):
         """
         Тестирование просмотра одного урока
         """
-
         self.client.force_authenticate(user=self.user)
         print(self.lesson.id)
 
@@ -82,17 +86,18 @@ class LessonTestCase(APITestCase):
 
     def test_update_lesson(self):
         """
-        Тестирование изменения списка уроков
+        Тестирование изменение урока
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
             "name_lesson": "test4555",
             "link": "https://youtube.com",
-            "description": "uuid",
-            "module_id": self.module.id
+            "description": "test description",
+            "module_id": self.module.id,
+            "content": "test content",
+            "author": self.user.id
         }
-
-        self.client.force_authenticate(user=self.user)
 
         response = self.client.put(
             f'/lesson/update/{self.lesson.id}/',
@@ -104,6 +109,7 @@ class LessonTestCase(APITestCase):
             response.status_code,
             status.HTTP_200_OK
         )
+        print(response.status_code)
 
     def test_delete_lesson(self):
         """
@@ -135,13 +141,14 @@ class CourseTestCase(APITestCase):
         self.user = User.objects.create(
             name='Test', surname='Test', email='test@t.com', is_superuser=True)
         self.course = Course.objects.create(
-            author=self.user, name_course='Course Name', description='Course Description')
+            author=self.user, name_course='Course Name',
+            description='Course Description', price=1000)
         self.module = Module.objects.create(
-            author=self.user, course_id=self.course.id, sequence_number=1,
+            author=self.user, course_id=self.course, sequence_number=1,
             name_module='Module Name', description='Module Description')
         self.lesson = Lesson.objects.create(
             name_lesson='Lesson Name', description='List Description',
-            link='https://my.sky.pro/youtube.com', module_id=self.module.id,
+            link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
 
     def test_create_course(self):
@@ -151,7 +158,8 @@ class CourseTestCase(APITestCase):
         data = {
             'name_course': 'Test',
             'description': 'Test',
-            'author': self.user.id
+            'author': self.user.id,
+            'price': 1000,
         }
         self.client.force_authenticate(user=self.user)
 
@@ -200,12 +208,14 @@ class CourseTestCase(APITestCase):
 
     def test_update_course(self):
         """
-        Тестирование изменения списка курсов
+        Тестирование изменения курса
         """
 
         data = {
             "name_course": "Test2",
             "description": "test",
+            "author": self.user.id,
+            "price": 10000,
         }
 
         self.client.force_authenticate(user=self.user)
@@ -247,13 +257,14 @@ class ModuleTestCase(APITestCase):
         self.user = User.objects.create(
             name='Test', surname='Test', email='test@t.com', is_superuser=True)
         self.course = Course.objects.create(
-            author=self.user, name_course='Course Name', description='Course Description')
+            author=self.user, name_course='Course Name',
+            description='Course Description', price=1000)
         self.module = Module.objects.create(
-            author=self.user, course_id=self.course.id, sequence_number=1,
+            author=self.user, course_id=self.course, sequence_number=1,
             name_module='Module Name', description='Module Description')
         self.lesson = Lesson.objects.create(
             name_lesson='Lesson Name', description='List Description',
-            link='https://my.sky.pro/youtube.com', module_id=self.module.id,
+            link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
 
     def test_create_module(self):
@@ -265,6 +276,8 @@ class ModuleTestCase(APITestCase):
             "sequence_number": 1,
             "name_module": "Module Name",
             "description": "Module Description",
+            "course_id": self.course.id,
+            "author": self.user.id
         }
         self.client.force_authenticate(user=self.user)
 
@@ -315,13 +328,16 @@ class ModuleTestCase(APITestCase):
         """
         Тестирование изменения модуля
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
+            "sequence_number": 1,
             "name_module": "Test2",
             "description": "test",
+            "content": "test",
+            "course_id": self.course.id,
+            "author": self.user.id
         }
-
-        self.client.force_authenticate(user=self.user)
 
         response = self.client.put(
             f'/module/update/{self.module.id}/',

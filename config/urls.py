@@ -42,8 +42,8 @@ urlpatterns = [
     # JWT
     path('token/', include('api.urls', namespace='api')),
     # документация API
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
     # оплата и подписка
     path('payments/', include('payments.urls', namespace='payments')),
 ]

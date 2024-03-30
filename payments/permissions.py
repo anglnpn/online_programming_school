@@ -8,7 +8,8 @@ class IsModerPayment(BasePermission):
 
     def has_permission(self, request, view):
         if request.user.is_staff:
-            return request.user.groups.filter(name='moderator_payment').exists()
+            return request.user.groups.filter(
+                name='moderator_payment').exists()
         else:
             return False
 

@@ -23,6 +23,8 @@ stripe = "^8.4.0"
 celery = "^5.3.6"
 flake8 = "^7.0.0"
 django-celery-beat = "^2.6.0"
+ipython = "^8.22.2"
+freezegun = "^1.4.0"
 
 
 [build-system]

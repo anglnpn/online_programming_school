@@ -2,14 +2,14 @@ from rest_framework import serializers
 
 from materials.models import Course, Lesson, Module
 from materials.services import convert_currencies
-from materials.validators import MaterialLinkCustomValidator
+from materials.validators import MaterialLinkValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
-        validators = [MaterialLinkCustomValidator(field='link')]
+        validators = [MaterialLinkValidator(field='link')]
 
 
 class ModuleSerializer(serializers.ModelSerializer):
@@ -18,7 +18,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Module
-        fields = ['id', 'sequence_number',
+        fields = ['id', 'course_id', 'sequence_number',
                   'name_module', 'description', 'image',
                   'lessons_count', 'lessons']
 
@@ -47,11 +47,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseListSerializer(serializers.ModelSerializer):
     modules_count = serializers.SerializerMethodField()
-    modules = ModuleSerializer(source='module_set', many=True, read_only=True)
 
     class Meta:
         model = Course
-        fields = ['id', 'name_course', 'description', 'module_count']
+        fields = ['id', 'name_course', 'description', 'modules_count']
 
     def get_modules_count(self, instance):
         return instance.module_set.count()

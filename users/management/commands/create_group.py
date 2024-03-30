@@ -16,6 +16,8 @@ class Command(BaseCommand):
         moderator_group, created = Group.objects.get_or_create(name=group_name)
 
         if created:
-            self.stdout.write(self.style.SUCCESS('Группа модераторов создана'))
+            self.stdout.write(self.style.SUCCESS(
+                'Группа модераторов создана'))
         else:
-            self.stdout.write(self.style.WARNING('Такая группа уже существует'))
+            self.stdout.write(self.style.WARNING(
+                'Такая группа уже существует'))
