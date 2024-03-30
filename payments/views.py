@@ -142,13 +142,15 @@ class SubscribeCreateAPIView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         user = self.request.user
+        print(user)
         course_id = self.request.data.get('course_id')
+        print(course_id)
 
         course_item = get_object_or_404(Course, id=course_id)
         payment = Payments.objects.filter(
             payment_user=user,
             payment_course=course_id,
-            payment_status='Успешно')
+            payment_status='successes')
         # Проверяем, что пользователь оплатил курс
         if payment:
             # Получаем объект подписки по пользователю курсу

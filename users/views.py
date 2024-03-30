@@ -3,7 +3,7 @@ from users.models import User
 from users.paginators import UserPagination
 from users.permissions import IsUser
 from users.serializers import UserSerializer, LimitedUserSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.hashers import make_password
 
 
@@ -66,6 +66,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated, IsUser]
+    # permission_classes = [AllowAny]
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
@@ -74,4 +75,4 @@ class UserDestroyAPIView(generics.DestroyAPIView):
     """
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated, IsUser]
-
+    # permission_classes = [AllowAny]

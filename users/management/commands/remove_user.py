@@ -9,8 +9,11 @@ class Command(BaseCommand):
     """
 
     def add_arguments(self, parser):
-        parser.add_argument('user_id', type=int, help='id пользователя')
-        parser.add_argument('group', type=str, help='название группы пользователей')
+        parser.add_argument(
+            'user_id', type=int, help='id пользователя')
+        parser.add_argument(
+            'group', type=str,
+            help='название группы пользователей')
 
     def handle(self, *args, **kwargs):
         user_id = kwargs['user_id']

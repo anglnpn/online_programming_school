@@ -38,6 +38,8 @@ def send_moderator_email(course_id):
             )
             logging.info("Рассылка отправлена")
         except Exception as e:
-            logging.warning("Ошибка при отправке")
+            logging.warning(str(e), "Ошибка при отправке")
     else:
         logging.warning("Курс был недавно обновлен")
+
+    return "success"
