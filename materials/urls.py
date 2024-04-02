@@ -25,7 +25,7 @@ urlpatterns = [
          name='course_update'),
     path('course/delete/<int:pk>/', CourseDestroyAPIView.as_view(),
          name='course_delete'),
-    path('', CourseListAPIView.as_view(), name='course_list'),
+    path('list/', CourseListAPIView.as_view(), name='course_list'),
     # модуль
     path('module/create/', ModuleCreateAPIView.as_view(),
          name='module_create'),
