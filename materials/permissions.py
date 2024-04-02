@@ -11,7 +11,8 @@ class IsModer(BasePermission):
 
     def has_permission(self, request, view):
         if request.user.is_staff:
-            return request.user.groups.filter(name='moderator').exists()
+            return request.user.groups.filter(name='moderator').exists() \
+                or request.user.is_superuser
         else:
             return False
 
