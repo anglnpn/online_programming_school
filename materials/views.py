@@ -28,6 +28,7 @@ class CourseCreateAPIView(generics.CreateAPIView):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
+
     # permission_classes = [AllowAny]
     # renderer_classes = [TemplateHTMLRenderer]
     # template_name = 'materials/course_create.html'
@@ -54,18 +55,23 @@ class CourseListAPIView(generics.ListAPIView):
     """
     queryset = Course.objects.all()
     serializer_class = CourseListSerializer
-    permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     pagination_class = MaterialsPagination
+
     # renderer_classes = [TemplateHTMLRenderer]
     # template_name = 'materials/index.html'
 
     def get(self, request):
-        queryset = Course.objects.all()
-        paginated_queryset = self.paginate_queryset(queryset)
-        serializer = CourseListSerializer(paginated_queryset, many=True)
-        return self.get_paginated_response(serializer.data)
-        # return Response({'courses': queryset})
+        course = [
+            {
+                'id': course.id,
+                'name_course': course.name_course,
+                'description': course.description,
+            } for course in Course.objects.all()
+        ]
+        print(course)
+        return Response(course)
 
 
 # def index(request):
@@ -108,6 +114,7 @@ class ModuleCreateAPIView(generics.CreateAPIView):
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
+
     # permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
@@ -142,6 +149,7 @@ class ModuleUpdateAPIView(generics.UpdateAPIView):
     queryset = Module.objects.all()
 
     permission_classes = [IsAuthenticated, IsModer]
+
     # permission_classes = [AllowAny]
 
     def perform_update(self, serializer):
@@ -202,6 +210,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
     queryset = Lesson.objects.all()
 
     permission_classes = [IsAuthenticated, IsModer]
+
     # permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
@@ -242,6 +251,7 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
+
     # permission_classes = [AllowAny]
 
     def perform_update(self, serializer):
