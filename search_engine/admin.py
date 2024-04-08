@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from search_engine.models import Text
+
+admin.site.register(Text)
+

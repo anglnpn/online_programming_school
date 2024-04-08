@@ -1,0 +1,17 @@
+.advert {
+    background-color: gray;
+    padding-top: 120px;
+    padding-bottom: 143px;
+
+}
+
+.advert__header {
+    margin-bottom: 100px;
+
+}
+
+.advert__card {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 24px;
+}

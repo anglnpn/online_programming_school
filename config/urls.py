@@ -46,4 +46,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
     # оплата и подписка
     path('payments/', include('payments.urls', namespace='payments')),
+    # эластик
+    path('search_engine/', include('search_engine.urls', namespace='search_engine')),
+
 ]

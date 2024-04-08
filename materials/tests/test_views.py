@@ -283,7 +283,7 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
-            '/module/create/',
+            '/modules/create/',
             data=data
         )
         print(response.json())
@@ -299,7 +299,7 @@ class ModuleTestCase(APITestCase):
         """
 
         response = self.client.get(
-            '/module/list/'
+            '/modules/list/'
         )
         print(response.json())
 
@@ -316,7 +316,7 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            f'/module/{self.module.id}/'
+            f'/modules/{self.module.id}/'
         )
         print(response.json())
 
@@ -341,7 +341,7 @@ class ModuleTestCase(APITestCase):
         }
 
         response = self.client.put(
-            f'/module/update/{self.module.id}/',
+            f'/modules/update/{self.module.id}/',
             data=data
         )
         print(response.json())
@@ -359,7 +359,7 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.delete(
-            f'/module/delete/{self.module.id}/'
+            f'/modules/delete/{self.module.id}/'
         )
 
         self.assertEqual(

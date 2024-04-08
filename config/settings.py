@@ -39,17 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
+
     'drf_yasg',
     'corsheaders',
     'django_celery_beat',
 
+    'django_elasticsearch_dsl',
+
+    # основа
     'users',
     'api',
     'materials',
     'payments',
+
+    # поисковик
+    'search_engine',
 
 ]
 
@@ -62,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -179,7 +188,12 @@ CORS_ALLOWED_ORIGINS = [
     os.getenv('CORS_ALLOWED_ORIGINS')
 ]
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_WHITELIST = [
+    os.getenv('CORS_ORIGIN_WHITELIST')
+]
+
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
@@ -199,6 +213,20 @@ CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED')
 
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+
+NAME_CHOICES = [
+    ('Введение в Git', 'Введение в Git'),
+    ('Введение в Postgres', 'Введение в Postgres'),
+    ('Введение в Django', 'Введение в Django'),
+]
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': [{'host': 'localhost', 'port': 9200, 'scheme': 'http'}],
+        'http_auth': ('elastic', '5GjVxI52S9wxns6DBNe4p4tZ')  # Если требуется аутентификация
+    }
+}
 
 # Настройки для Celery
 # CELERY_BEAT_SCHEDULE = {

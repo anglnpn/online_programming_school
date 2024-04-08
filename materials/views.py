@@ -57,21 +57,10 @@ class CourseListAPIView(generics.ListAPIView):
     serializer_class = CourseListSerializer
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
-    pagination_class = MaterialsPagination
+    # pagination_class = MaterialsPagination
 
     # renderer_classes = [TemplateHTMLRenderer]
     # template_name = 'materials/index.html'
-
-    def get(self, request):
-        course = [
-            {
-                'id': course.id,
-                'name_course': course.name_course,
-                'description': course.description,
-            } for course in Course.objects.all()
-        ]
-        print(course)
-        return Response(course)
 
 
 # def index(request):
@@ -176,7 +165,7 @@ class ModuleUpdateAPIView(generics.UpdateAPIView):
         # Получаем объект модуля
         module_obj = Module.objects.get(id=module_id)
 
-        # обновляем дату изменения module
+        # обновляем дату изменения modules
         module_obj.update_date = datetime.utcnow()
         module_obj.save()
 
@@ -264,14 +253,14 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
         # получаем id курса из данных
         module_id = data.get('module_id')
 
-        # получаем объект module
+        # получаем объект modules
         module_obj = Module.objects.get(id=module_id)
 
         # получаем объект курса
         course_obj = module_obj.course_id
         course_id = course_obj.id
 
-        # обновляем дату изменения module
+        # обновляем дату изменения modules
         module_obj.update_date = datetime.utcnow()
         module_obj.save()
 

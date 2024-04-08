@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='module',
+            model_name='modules',
             name='update_date',
             field=models.DateTimeField(auto_now=True, null=True, verbose_name='дата изменения'),
         ),
