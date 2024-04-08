@@ -1,0 +1,23 @@
+:root {
+    --textColor: black;
+}
+
+body {
+    color: var(--textColor);
+}
+
+
+.container {
+    max-width: 1780px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.title__2 {
+    position: relative;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1.04;
+    letter-spacing: 0.06em;
+    color: black;
+}

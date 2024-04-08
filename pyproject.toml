@@ -25,6 +25,7 @@ flake8 = "^7.0.0"
 django-celery-beat = "^2.6.0"
 ipython = "^8.22.2"
 freezegun = "^1.4.0"
+django-elasticsearch-dsl = "^8.0"
 
 
 [build-system]

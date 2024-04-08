@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(verbose_name='содержание урока')),
                 ('link', models.CharField(max_length=50, verbose_name='ссылка на видео')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='автор')),
-                ('module_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='materials.module', verbose_name='модуль урока')),
+                ('module_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='materials.modules', verbose_name='модуль урока')),
             ],
             options={
                 'verbose_name': 'урок',
