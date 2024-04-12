@@ -1,21 +1,22 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from materials.models import Course, Lesson, Module
+from payments.models import Payments
 
 from users.models import User
 
 
 class LessonTestCase(APITestCase):
     """
-    Тест для урока.
+    Тестирование работы с объектом "Lesson".
     """
 
     def setUp(self) -> None:
         # Создание объектов для тестирования
         self.user = User.objects.create(
             name='Test', surname='Test', email='test@t.com',
-            is_superuser=True)
+            is_superuser=True, is_staff=True)
         self.course = Course.objects.create(
             author=self.user, name_course='Course Name',
             description='Course Description', price=1000)
@@ -27,9 +28,11 @@ class LessonTestCase(APITestCase):
             link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
 
+        self.client = APIClient()
+
     def test_create_lesson(self):
         """
-        Тестирование создания урока
+        Тестирование создания урока.
         """
         data = {
             'name_lesson': 'Test',
@@ -42,14 +45,37 @@ class LessonTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
-            '/lesson/create/',
+            '/materials/lesson/create/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
             status.HTTP_201_CREATED
+        )
+
+    def test_create_lesson_error(self):
+        """
+        Тестирование ошибки создания урока.
+        """
+        data = {
+            'name_lesson': 'Test',
+            'description': 'Test',
+            'link': 'https://my.sky.pro/youtube.com',
+            'module_id': 'self.module.id',
+            'content': 'Test content',
+            'author': self.user.id
+        }
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.post(
+            '/materials/lesson/create/',
+            data=data
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST
         )
 
     def test_list_lesson(self):
@@ -59,9 +85,8 @@ class LessonTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            '/lesson/'
+            '/materials/lesson/'
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -76,9 +101,8 @@ class LessonTestCase(APITestCase):
         print(self.lesson.id)
 
         response = self.client.get(
-            f'/lesson/{self.lesson.id}/'
+            f'/materials/lesson/{self.lesson.id}/'
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -101,10 +125,9 @@ class LessonTestCase(APITestCase):
         }
 
         response = self.client.put(
-            f'/lesson/update/{self.lesson.id}/',
+            f'/materials/lesson/update/{self.lesson.id}/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -120,7 +143,7 @@ class LessonTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.delete(
-            f'/lesson/delete/{self.lesson.id}/'
+            f'/materials/lesson/delete/{self.lesson.id}/'
         )
 
         self.assertEqual(
@@ -135,15 +158,20 @@ class LessonTestCase(APITestCase):
 
 class CourseTestCase(APITestCase):
     """
-    Тест для курса
+    Тестирование работы с объектом "Course".
     """
 
     def setUp(self) -> None:
         self.user = User.objects.create(
-            name='Test', surname='Test', email='test@t.com', is_superuser=True)
+            name='Test', surname='Test', email='test@t.com',
+            is_superuser=True, is_staff=True)
         self.course = Course.objects.create(
             author=self.user, name_course='Course Name',
             description='Course Description', price=1000)
+        self.payment = Payments.objects.create(
+            payment_user=self.user, payment_course=self.course,
+            payment_amount=100000, payment_status='successes',
+            payment_method='transfer')
         self.module = Module.objects.create(
             author=self.user, course_id=self.course, sequence_number=1,
             name_module='Module Name', description='Module Description')
@@ -151,6 +179,8 @@ class CourseTestCase(APITestCase):
             name_lesson='Lesson Name', description='List Description',
             link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
+
+        self.client = APIClient()
 
     def test_create_course(self):
         """
@@ -165,23 +195,79 @@ class CourseTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
-            '/course/create/',
+            '/materials/course/create/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
             status.HTTP_201_CREATED
         )
 
+    def test_create_course_error(self):
+        """
+        Тестирование ошибки создания курса
+        """
+        data = {
+            'name_course': 'Test',
+            'description': 'Test',
+            'author': 'self.user.id',
+            'price': 1000,
+        }
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.post(
+            '/materials/course/create/',
+            data=data
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST
+        )
+
     def test_list_course(self):
         """
         Тестирование просмотра списка курсов
         """
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            '/'
+            '/materials/courses_list/'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+    def test_course_list_purchased(self):
+        """
+        Тестирование просмотра списка курсов,
+        которые были куплены пользователем.
+        """
+
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.get(
+            '/materials/list/'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+
+    def test_list_users_course(self):
+        """
+        Тестирование просмотра списка курсов,
+        которые были куплены пользователем.
+        """
+
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.get(
+            '/materials/list_user/'
         )
         print(response.json())
 
@@ -198,9 +284,8 @@ class CourseTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            f'/course/{self.course.id}/'
+            f'/materials/course/{self.course.id}/'
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -222,10 +307,9 @@ class CourseTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.put(
-            f'/course/update/{self.course.id}/',
+            f'/materials/course/update/{self.course.id}/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -240,7 +324,7 @@ class CourseTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.delete(
-            f'/course/delete/{self.course.id}/'
+            f'/materials/course/delete/{self.course.id}/'
         )
 
         self.assertEqual(
@@ -251,12 +335,13 @@ class CourseTestCase(APITestCase):
 
 class ModuleTestCase(APITestCase):
     """
-    Тест для модуля
+    Тестирование работы с объектом "Module".
     """
 
     def setUp(self) -> None:
         self.user = User.objects.create(
-            name='Test', surname='Test', email='test@t.com', is_superuser=True)
+            name='Test', surname='Test', email='test@t.com',
+            is_superuser=True, is_staff=True)
         self.course = Course.objects.create(
             author=self.user, name_course='Course Name',
             description='Course Description', price=1000)
@@ -267,6 +352,8 @@ class ModuleTestCase(APITestCase):
             name_lesson='Lesson Name', description='List Description',
             link='https://my.sky.pro/youtube.com', module_id=self.module,
             author=self.user)
+
+        self.client = APIClient()
 
     def test_create_module(self):
         """
@@ -283,25 +370,48 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
-            '/modules/create/',
+            '/materials/modules/create/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
             status.HTTP_201_CREATED
         )
 
+    def test_create_module_error(self):
+        """
+        Тестирование ошибки создания модуля
+        """
+        data = {
+
+            "sequence_number": 1,
+            "name_module": "Module Name",
+            "description": "Module Description",
+            "course_id": "self.course.id",
+            "author": "self.user.id"
+        }
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.post(
+            '/materials/modules/create/',
+            data=data
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST
+        )
+
     def test_list_module(self):
         """
         Тестирование просмотра списка модулей
         """
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            '/modules/list/'
+            '/materials/modules/list/'
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -316,9 +426,8 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.get(
-            f'/modules/{self.module.id}/'
+            f'/materials/modules/{self.module.id}/'
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -341,10 +450,9 @@ class ModuleTestCase(APITestCase):
         }
 
         response = self.client.put(
-            f'/modules/update/{self.module.id}/',
+            f'/materials/modules/update/{self.module.id}/',
             data=data
         )
-        print(response.json())
 
         self.assertEqual(
             response.status_code,
@@ -359,7 +467,7 @@ class ModuleTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
         response = self.client.delete(
-            f'/modules/delete/{self.module.id}/'
+            f'/materials/modules/delete/{self.module.id}/'
         )
 
         self.assertEqual(
