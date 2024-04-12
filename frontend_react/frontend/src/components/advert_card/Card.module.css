@@ -1,14 +1,14 @@
-.card {
-    background-color: yellow;
-}
-
-.card_list {
+.card__list {
     display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    height: 100vh; /* Занимает всю высоту экрана */
 }
 
 .card__container {
-    flex: 0px;
-    margin-bottom: 10px;
+    flex: 1;
+    max-width: 300px;
+    margin: 0 20px 20px 0;
 }
 
 .card__img {
@@ -18,9 +18,9 @@
 
 .card__body {
     display: flex;
-    justify-content: space-between;
-    column-gap: 10px;
-    align-items: center;
+    flex-direction: column; /* Устанавливаем столбцовую ориентацию для элементов внутри */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
 }
 
 .card__title {

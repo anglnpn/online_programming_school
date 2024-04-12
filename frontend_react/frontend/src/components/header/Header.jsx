@@ -1,22 +1,49 @@
-import logo from './../../img/icons/logo.jpg';
-
-
-// импорт цвета текста
-import './header.css';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from '../login/LoginForm';
+import ConfirmLogoutModal from './ConfirmLogoutModal'; // Импортируем компонент подтверждения
+import logo from './../../img/icons/logo.jpg';
 import '../login/login.css';
+import './header.css';
 
 function Header() {
     const [showLoginForm, setShowLoginForm] = useState(false);
+    const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false); // Состояние для отображения модального окна
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Проверяем, есть ли токен в localStorage
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token); // Устанавливаем состояние аутентификации в зависимости от наличия токена
+    }, []);
 
     const handleLoginClick = () => {
         setShowLoginForm(true);
     };
 
+    const handleLogoutClick = () => {
+        setShowConfirmLogoutModal(true); // Показываем модальное окно при выходе
+    };
+
+    const handleConfirmLogout = () => {
+        localStorage.removeItem('token'); // Удаляем токен из localStorage
+        setIsLoggedIn(false); // Устанавливаем состояние аутентификации как false
+        setShowConfirmLogoutModal(false); // Закрываем модальное окно
+        navigate('/'); // Редирект на главную страницу
+    };
+
+    const handleCancelLogout = () => {
+        setShowConfirmLogoutModal(false); // Закрываем модальное окно
+    };
+
     const handleLoginSuccess = () => {
         setShowLoginForm(false);
+        setIsLoggedIn(true); // Устанавливаем состояние аутентификации как true
+    };
+
+    const handleHomeClick = () => {
+        navigate('/personal'); // Редирект в личный кабинет
     };
 
     return (
@@ -25,13 +52,19 @@ function Header() {
                 <div className="header__row">
                     <div className="header__logo">
                         <img src={logo} alt="Logo" />
-                        <span>OnlineSchool</span>
+
                     </div>
                     <nav className="header__nav">
                         <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><button onClick={handleLoginClick} className="header__nav-btn">SIGN UP</button></li>
+                            {isLoggedIn && (
+                                <li><button onClick={handleHomeClick} className="header__nav-btn">Home</button></li>
+                            )}
+
+                            {isLoggedIn ? (
+                                <li><button onClick={handleLogoutClick} className="header__nav-btn">Log Out</button></li>
+                            ) : (
+                                <li><button onClick={handleLoginClick} className="header__nav-btn">SIGN UP</button></li>
+                            )}
                         </ul>
                     </nav>
                 </div>
@@ -42,6 +75,9 @@ function Header() {
                         <LoginForm onLogin={handleLoginSuccess} />
                     </div>
                 </div>
+            )}
+            {showConfirmLogoutModal && (
+                <ConfirmLogoutModal onConfirm={handleConfirmLogout} onCancel={handleCancelLogout} /> // Показываем модальное окно подтверждения при выходе
             )}
         </header>
     );

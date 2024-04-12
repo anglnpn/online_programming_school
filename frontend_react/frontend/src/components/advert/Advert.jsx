@@ -8,7 +8,9 @@ const Advert = () => {
             <div className="container">
                 <div className="advert__header">
                     <div className="title__2">
-                        НAШИ КУРСЫ
+                        ПОСЛЕ РЕГИСТРАЦИИ ТЫ ПОЛУЧИШЬ ДОСТУП К БОЛЬШОМУ КОЛИЧЕСТВУ КУРСОВ!
+
+                    <div className="title__3"> ВОТ САМЫЕ ПОПУЛЯРНЫЕ:</div>
                     </div>
                 </div>
                 <div className="advert__card">
