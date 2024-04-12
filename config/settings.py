@@ -180,8 +180,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
 
 CORS_ALLOWED_ORIGINS = [
@@ -190,9 +190,9 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ORIGIN_WHITELIST = [
-    os.getenv('CORS_ORIGIN_WHITELIST')
-]
+# CORS_ORIGIN_WHITELIST = [
+#     os.getenv('CORS_ORIGIN_WHITELIST')
+# ]
 
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
