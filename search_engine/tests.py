@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from users.models import User
@@ -6,9 +6,9 @@ from users.models import User
 from search_engine.models import Text
 
 
-class UserTestCase(APITestCase):
+class SearchTestCase(APITestCase):
     """
-    Тестирование работы с пользователем.
+    Тестирование работы с поисковиком.
     """
 
     def setUp(self) -> None:
@@ -16,6 +16,7 @@ class UserTestCase(APITestCase):
             name='Test',
             surname='Test',
             email='test_usachev@sky.com',
+            is_staff=True,
             is_superuser=True
         )
 
@@ -26,11 +27,13 @@ class UserTestCase(APITestCase):
             text='Тест текста',
             created_date='2024-04-01 21:35:07.891282+05'
         )
+        self.client = APIClient()
 
     def test_create_text(self):
         """
         Тестирование создания текста
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
             "id": 1,
@@ -49,9 +52,6 @@ class UserTestCase(APITestCase):
             response.status_code,
             status.HTTP_201_CREATED
         )
-        # Проверяем, что пользователь действительно создан
-        created_user = User.objects.get(email='test_usachev@sky.com')
-        self.assertIsNotNone(created_user)
 
     def test_list_user(self):
         """
@@ -122,6 +122,7 @@ class UserTestCase(APITestCase):
         """
         Тестирование поиска текста
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
             'query': 'текста',
@@ -140,11 +141,6 @@ class UserTestCase(APITestCase):
             response.status_code,
             status.HTTP_200_OK
         )
-
-        # Дополнительные проверки содержимого ответа, например, наличие ожидаемых данных
-        # self.assertIn('Сообщение', response.data)
-        # self.assertIn('Текст', response.data['hits'][0])
-        # self.assertEqual(response.data['hits'][0]['Текст'], 'Expected Text')
 
     def test_search_text_not_found(self):
         """
