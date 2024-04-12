@@ -56,14 +56,16 @@ function Header() {
                     </div>
                     <nav className="header__nav">
                         <ul>
+                            <li><a href="/search">Поисковик</a></li>
                             {isLoggedIn && (
-                                <li><button onClick={handleHomeClick} className="header__nav-btn">Home</button></li>
+                                <li><a href="/personal">Домой</a></li>
+
                             )}
 
                             {isLoggedIn ? (
-                                <li><button onClick={handleLogoutClick} className="header__nav-btn">Log Out</button></li>
+                                <li><button onClick={handleLogoutClick} className="header__nav-btn">Выйти</button></li>
                             ) : (
-                                <li><button onClick={handleLoginClick} className="header__nav-btn">SIGN UP</button></li>
+                                <li><button onClick={handleLoginClick} className="header__nav-btn">Войти</button></li>
                             )}
                         </ul>
                     </nav>

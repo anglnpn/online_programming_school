@@ -9,6 +9,10 @@ const RegistrationForm = ({ onRegistration }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleClick = () => {
+        window.location.href = '/';
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.post('http://127.0.0.1:8000/user/create/', {
@@ -39,6 +43,7 @@ const RegistrationForm = ({ onRegistration }) => {
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Электронная почта" className="registration-form-input" />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" className="registration-form-input" />
             <button type="submit" className="registration-form-button">Зарегистрироваться</button>
+            <button onClick={handleClick} className="close-btn">х</button>
         </form>
     );
 };

@@ -20,6 +20,7 @@ const CourseCard = ({ course }) => {
               const match = paymentSessionString.match(regex);
               const paymentUrl = match && match[1];
               // Перенаправление пользователя на страницу оплаты Stripe
+              console.log('paymentUrl:', paymentUrl);
               window.location.href = paymentUrl;
 
 

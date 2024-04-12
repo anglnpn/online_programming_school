@@ -8,7 +8,7 @@ from .models import Text
 class TextDocument(Document):
     class Index:
         # Имя elastic-индекса
-        name = 'text'
+        name = 'text1'
         # Настройки elastic
         settings = {'number_of_shards': 1,
                     'number_of_replicas': 0}

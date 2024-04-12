@@ -16,8 +16,8 @@ class SearchTestCase(APITestCase):
             name='Test',
             surname='Test',
             email='test_usachev@sky.com',
-            is_staff=True,
-            is_superuser=True
+            is_superuser=True,
+            is_staff=True
         )
 
         self.text = Text.objects.create(
@@ -27,6 +27,8 @@ class SearchTestCase(APITestCase):
             text='Тест текста',
             created_date='2024-04-01 21:35:07.891282+05'
         )
+        self.client = APIClient()
+
         self.client = APIClient()
 
     def test_create_text(self):
@@ -42,6 +44,7 @@ class SearchTestCase(APITestCase):
             "text": "Тест текста",
             "created_date": "2024-04-01 21:35:07.891282+05",
         }
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
             '/search_engine/text/create/',

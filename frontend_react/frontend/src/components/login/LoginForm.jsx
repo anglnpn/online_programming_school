@@ -6,6 +6,9 @@ import '../login/login.css';
 import RegistrationForm from '../registration/RegistrationForm';
 import '../registration/register.css';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,9 +23,14 @@ const LoginForm = ({ onLogin }) => {
     const handleRegisterSuccess = () => {
         setShowRegistrationForm(false);
     };
+
+    const handleClick = () => {
+        window.location.href = '/';
+    };
+
     const handleLoginButtonClick = () => {
 
-        axios.post('http://127.0.0.1:8000/token/', {
+        axios.post(`${apiUrl}/token/`, {
             email: email,
             password: password
         })
@@ -43,7 +51,6 @@ const LoginForm = ({ onLogin }) => {
     return (
         <div>
             <div className="login-modal-content">
-                <span className="close-btn">×</span>
                 <h2 className="login-form-title">Вход</h2>
                 <form>
                     <input
@@ -63,6 +70,8 @@ const LoginForm = ({ onLogin }) => {
                     <button type="button" onClick={handleLoginButtonClick} className="login-form-button">Войти</button>
                 </form>
                 <button onClick={handleRegisterClick} className="register-button">Зарегистрироваться</button>
+
+                <button onClick={handleClick} className="close-btn">х</button>
                 {showRegistrationForm && (
                     <div className="login-modal">
                         <div className="login-modal-content">
@@ -76,3 +85,4 @@ const LoginForm = ({ onLogin }) => {
 };
 
 export default LoginForm;
+

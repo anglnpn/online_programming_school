@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -20,7 +20,8 @@ class TextCreateAPIView(generics.CreateAPIView):
     """
     serializer_class = TextSerializer
     queryset = Text.objects.all()
-    permission_classes = [IsAuthenticated, IsTextModer]
+    # permission_classes = [IsAuthenticated, IsTextModer]
+    permission_classes = [AllowAny]
 
 
 class TextListAPIView(generics.ListAPIView):
@@ -30,6 +31,7 @@ class TextListAPIView(generics.ListAPIView):
     serializer_class = TextSerializer
     queryset = Text.objects.all()
     permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
     pagination_class = TextPagination
 
 
@@ -39,7 +41,8 @@ class TextRetrieveAPIView(generics.RetrieveAPIView):
     """
     serializer_class = TextSerializer
     queryset = Text.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class TextUpdateAPIView(generics.UpdateAPIView):
@@ -48,7 +51,8 @@ class TextUpdateAPIView(generics.UpdateAPIView):
     """
     serializer_class = TextSerializer
     queryset = Text.objects.all()
-    permission_classes = [IsAuthenticated, IsTextModer]
+    # permission_classes = [IsAuthenticated, IsTextModer]
+    permission_classes = [AllowAny]
 
 
 class TextDestroyAPIView(generics.DestroyAPIView):
@@ -56,19 +60,18 @@ class TextDestroyAPIView(generics.DestroyAPIView):
     Удаление текста
     """
     queryset = Text.objects.all()
-    permission_classes = [IsAuthenticated, IsTextModer]
+    # permission_classes = [IsAuthenticated, IsTextModer]
+    permission_classes = [AllowAny]
 
 
 class TextSearchAPIView(APIView):
     """
     Поиск по текстам через query-запрос
     """
-    hits_list = []
 
     def post(self, request):
+        hits_list = []
         query = request.data.get('query')
-
-        self.hits_list.clear()
 
         logging.info(f"request '{request}'.")
         logging.info(f"request.data '{request.data}'.")
@@ -82,16 +85,16 @@ class TextSearchAPIView(APIView):
                     "Рубрика: {}, тема: {}, текст: {}".format(hit.rubrics, hit.theme, hit.text)
                 )
                 hits_dict = {'Рубрика': hit.rubrics, 'Тема': hit.theme, 'Текст': hit.text}
-                self.hits_list.append(hits_dict)
+                hits_list.append(hits_dict)
 
-            if not self.hits_list:
+            if not hits_list:
                 logging.info(f'Точных совпадений по запросу "{query}" не нашлось.')
                 data = {'Сообщение': f'Точных совпадений по запросу "{query}" не нашлось.', 'hits': []}
                 return Response(data, status=status.HTTP_404_NOT_FOUND)
             else:
-                logging.info(f'По запросу слова "{query}" были выведены следующие совпадения: {self.hits_list}')
+                logging.info(f'По запросу слова "{query}" были выведены следующие совпадения: {hits_list}')
                 data = {'Сообщение': f'По запросу слова "{query}" были выведены следующие совпадения: ',
-                        'hits': self.hits_list}
+                        'hits': hits_list}
                 return Response(data, status=status.HTTP_200_OK)
 
         else:
