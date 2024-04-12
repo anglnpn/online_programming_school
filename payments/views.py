@@ -38,9 +38,15 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
         # Проверяем, что данные валидны
         serializer.is_valid(raise_exception=True)
 
+        # Получаем текущего пользователя
+        user = self.request.user
+
         # Получаем данные, прошедшие сериализацию
         valid_data = serializer.validated_data
         course = valid_data.get('payment_course')
+
+        # Записываем текущего пользователя в поле payment_user
+        valid_data['payment_user'] = user
 
         # Получаем объект курса для получения названия, цены и описания
         course_name = course.name_course
@@ -56,7 +62,7 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
         amount = create_price(product, course_price)
         # создание сессии оплаты в stripe
         payment_session = create_payment_session(
-            amount, success_url='https://example.com/success',
+            amount, success_url='http://localhost:3000/user_courses',
             cancel_url='https://example.com/cancel')
 
         # Добавляем ссылку на оплату в данные о платеже
@@ -68,41 +74,6 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-
-class PaymentStatusAPIView(generics.CreateAPIView):
-    """
-    Получение статуса оплаты
-    В пост запрос передается payments_id.
-    Контроллер передает его в сервисную функцию.
-    Функция делает запрос в stripe и получает статус оплаты.
-    """
-
-    serializer_class = PaymentsSerializer
-    queryset = Payments.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        payment_id = request.data.get('payment_id')
-
-        payment_obj = Payments.objects.get(id=payment_id)
-
-        pay_session_str = payment_obj.payment_session_id
-        pay_session_dict = ast.literal_eval(pay_session_str)
-
-        session_id = pay_session_dict.get('session_id')
-
-        payment_status = get_payment_status(session_id)
-
-        if payment_status == 'complete':
-            payment_obj.payment_status = 'Успешно'
-            payment_obj.save()
-        else:
-            payment_obj.payment_status = 'Неуспешно'
-            payment_obj.save()
-
-        return Response(
-            {'payment_status': payment_status}, status=status.HTTP_200_OK)
 
 
 class PaymentsListAPIView(generics.ListAPIView):

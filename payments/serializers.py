@@ -10,7 +10,7 @@ class PaymentsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Payments
-        fields = '__all__'
+        exclude = ['payment_user']
 
 
 class SubscribeSerializer(serializers.ModelSerializer):
@@ -20,4 +20,4 @@ class SubscribeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscribe
-        fields = '__all__'
+        exclude = ['user']
