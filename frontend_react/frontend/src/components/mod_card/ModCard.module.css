@@ -1,0 +1,74 @@
+/* ModCard.module.css */
+
+.card {
+    background-color: gray;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.card__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.card__img {
+    width: 1000%; /* Растягиваем картинку на всю ширину */
+    max-width: 200px; /* Максимальная ширина картинки */
+    height: auto;
+    max-height: 100px; /* Максимальная высота картинки */
+    margin-bottom: 10px;
+    border-radius: 5px; /* Добавляем скругление углов для картинки */
+}
+
+.card__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card__desc {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card__lessons {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #8a2be2;
+    justify-content: space-between;
+}
+
+.card__lesson {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.lesson__button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+}
+
+.lesson__button:hover {
+    background-color: red;
+}

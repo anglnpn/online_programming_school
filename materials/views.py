@@ -1,5 +1,7 @@
 from datetime import datetime
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 from materials.models import Course, Lesson, Module
 from materials.paginators import MaterialsPagination
 from materials.permissions import IsModer, IsUserPaymentStatus
@@ -8,17 +10,9 @@ from materials.serializers import (CourseSerializer,
                                    ModuleSerializer,
                                    CourseListSerializer)
 
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.renderers import TemplateHTMLRenderer
-
-from rest_framework.response import Response
-
 from materials.tasks import send_moderator_email
 
-from rest_framework.views import APIView
-
-import requests
-from django.shortcuts import render, get_object_or_404, redirect
+from payments.models import Payments
 
 
 class CourseCreateAPIView(generics.CreateAPIView):
@@ -29,24 +23,8 @@ class CourseCreateAPIView(generics.CreateAPIView):
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
 
-    # permission_classes = [AllowAny]
-    # renderer_classes = [TemplateHTMLRenderer]
-    # template_name = 'materials/course_create.html'
-
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-
-    # def get(self, request):
-    #     serializer = CourseSerializer()
-    #
-    #     return Response({'serializer': serializer})
-    #
-    # def post(self, request):
-    #     serializer = CourseSerializer(data=request.data)
-    #     if not serializer.is_valid():
-    #         return Response({'serializer': serializer})
-    #     serializer.save()
-    #     return redirect(reverse('materials:list'))
 
 
 class CourseListAPIView(generics.ListAPIView):
@@ -55,18 +33,60 @@ class CourseListAPIView(generics.ListAPIView):
     """
     queryset = Course.objects.all()
     serializer_class = CourseListSerializer
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
-    # pagination_class = MaterialsPagination
-
-    # renderer_classes = [TemplateHTMLRenderer]
-    # template_name = 'materials/index.html'
+    permission_classes = [IsAuthenticated, IsModer]
+    pagination_class = MaterialsPagination
 
 
-# def index(request):
-#     course_list_view = CourseListAPIView()
-#     serializer_data = course_list_view.get_serializer(course_list_view.get_queryset(), many=True).data
-#     return Response({'serializer_data': serializer_data})
+class CourseListPurchasedAPIView(generics.ListAPIView):
+    """
+    Вывод списка курсов
+    """
+    queryset = Course.objects.all()
+    serializer_class = CourseListSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = MaterialsPagination
+
+    def get_queryset(self):
+        """
+        Возвращает пользователю не купленные
+        курсы.
+        """
+        # получаем текущего пользователя
+        user = self.request.user
+        # получаем все успешные платежи пользователя
+        successful_payments = Payments.objects.filter(
+            payment_user=user, payment_status='successes')
+
+        # Получаем список курсов, которые пользователь купил
+        course_ids = successful_payments.values_list('payment_course__id', flat=True)
+
+        # Возвращаем только не купленные курсы
+        return self.queryset.exclude(id__in=course_ids)
+
+
+class CourseListUsersAPIView(generics.ListAPIView):
+    """
+    Вывод списка курсов, которые пользователь купил
+    """
+    queryset = Course.objects.all()
+    serializer_class = CourseListSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Вывод только купленных курсов с проведенной оплатой
+        """
+        # получаем текущего пользователя
+        user = self.request.user
+        # получаем все успешные платежи пользователя
+        successful_payments = Payments.objects.filter(
+            payment_user=user, payment_status='successes')
+
+        # Получаем список курсов, которые пользователь купил
+        course_ids = successful_payments.values_list('payment_course__id', flat=True)
+
+        # Возвращаем только купленные курсы
+        return self.queryset.filter(id__in=course_ids)
 
 
 class CourseRetrieveAPIView(generics.RetrieveAPIView):
@@ -76,7 +96,6 @@ class CourseRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
-    # permission_classes = [AllowAny]
 
 
 class CourseUpdateAPIView(generics.UpdateAPIView):
@@ -86,14 +105,6 @@ class CourseUpdateAPIView(generics.UpdateAPIView):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-    # permission_classes = [AllowAny]
-    # renderer_classes = [TemplateHTMLRenderer]
-    # template_name = 'materials/course_update.html'
-    #
-    # def get(self, request, pk):
-    #     course = get_object_or_404(Course, pk=pk)
-    #     serializer = CourseSerializer(course)
-    #     return Response({'serializer': serializer, 'course': course})
 
 
 class ModuleCreateAPIView(generics.CreateAPIView):
@@ -103,8 +114,6 @@ class ModuleCreateAPIView(generics.CreateAPIView):
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-
-    # permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -117,7 +126,6 @@ class ModuleListAPIView(generics.ListAPIView):
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
-    # permission_classes = [AllowAny]
 
 
 class ModuleRetrieveAPIView(generics.RetrieveAPIView):
@@ -127,7 +135,6 @@ class ModuleRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
-    # permission_classes = [AllowAny]
 
 
 class ModuleUpdateAPIView(generics.UpdateAPIView):
@@ -136,10 +143,7 @@ class ModuleUpdateAPIView(generics.UpdateAPIView):
     """
     serializer_class = ModuleSerializer
     queryset = Module.objects.all()
-
     permission_classes = [IsAuthenticated, IsModer]
-
-    # permission_classes = [AllowAny]
 
     def perform_update(self, serializer):
         """
@@ -179,7 +183,6 @@ class ModuleDestroyAPIView(generics.DestroyAPIView):
     """
     queryset = Module.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-    # permission_classes = [AllowAny]
 
 
 class CourseDestroyAPIView(generics.DestroyAPIView):
@@ -188,7 +191,6 @@ class CourseDestroyAPIView(generics.DestroyAPIView):
     """
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-    # permission_classes = [AllowAny]
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -197,10 +199,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
     """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
-
     permission_classes = [IsAuthenticated, IsModer]
-
-    # permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -213,14 +212,7 @@ class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
-    permission_classes = [AllowAny]
     pagination_class = MaterialsPagination
-
-    # def get(self, request):
-    #     queryset = Lesson.objects.all()
-    #     paginated_queryset = self.paginate_queryset(queryset)
-    #     serializer = LessonSerializer(paginated_queryset, many=True)
-    #     return self.get_paginated_response(serializer.data)
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
@@ -230,7 +222,6 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer | IsUserPaymentStatus]
-    # permission_classes = [AllowAny]
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
@@ -240,8 +231,6 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-
-    # permission_classes = [AllowAny]
 
     def perform_update(self, serializer):
         """
@@ -278,4 +267,3 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     """
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModer]
-    # permission_classes = [AllowAny]

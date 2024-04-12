@@ -1,5 +1,4 @@
 import styles from './Card.module.css';
-
 import pythonImg from './../../img/course/python.jpg';
 import javaImg from './../../img/course/java.jpg';
 import goImg from './../../img/course/go.jpg';

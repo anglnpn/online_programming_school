@@ -1,0 +1,56 @@
+.card {
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.card_list {
+    display: flex;
+}
+
+.card__container {
+    flex: 10px;
+    margin-bottom: 10px;
+}
+
+.card__img {
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+.card__body {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.card__title {
+    margin-bottom: 7px;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.56;
+    letter-spacing: -0.04em;
+    color: black;
+}
+
+.card__desc {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 2.08;
+    letter-spacing: -0.04em;
+    color: red;
+}
+
+.card__button {
+    padding: 10px 20px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card__button:hover {
+    background-color: red;
+}

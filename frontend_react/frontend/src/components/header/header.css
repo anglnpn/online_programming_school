@@ -1,5 +1,9 @@
+
+
 .header {
     padding: 46px 0 56px;
+    background: #6608B9;
+    border-radius: 10px;
 }
 
 .header__row {
@@ -12,13 +16,15 @@
 .header__logo {
     display: flex;
     align-items: center;
-    column-gap: 13px;
+    width: 200px; /* Изменяем ширину элемента */
+    column-gap: 5px;
+    margin-left: 40px;
 }
 
 .header__logo span {
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 90;
+    line-height: 0;
     letter-spacing: 0.03em;
     text-transform: uppercase;
 }
@@ -43,14 +49,14 @@
 }
 
 .header__nav-btn, a.header__nav-btn {
+    margin-right: 50px;
     border-radius: 10px;
     padding: 13px 22px 17px;
-    background-color: red;
+    background-color: black;
     font-weight: 500;
     font-size: 22px;
     line-height: 1.5;
     letter-spacing: -0.03em;
     color: white;
-
 }
 

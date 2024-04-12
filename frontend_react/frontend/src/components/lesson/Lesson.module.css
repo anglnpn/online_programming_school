@@ -1,0 +1,59 @@
+
+.card {
+    margin: 20px auto;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card__container {
+    padding: 20px;
+}
+
+.card__img {
+    width: 50%; /* Занимает всю ширину контейнера */
+    height: auto; /* Автоматически подстраивается по высоте */
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.card__desc {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.card__content {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.card__button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card__button:hover {
+    background-color: #0056b3;
+}
+
+.card__button:focus {
+    outline: none;
+}
+
+.video__player {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}

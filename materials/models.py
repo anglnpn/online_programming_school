@@ -76,7 +76,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание урока')
     content = models.TextField(verbose_name='содержание урока')
     link = models.CharField(
-        max_length=50, verbose_name='ссылка на видео')
+        max_length=200, verbose_name='ссылка на видео')
 
     def __str__(self):
         return f'{self.name_lesson}'

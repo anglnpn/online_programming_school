@@ -10,8 +10,9 @@ from materials.views import (
     LessonDestroyAPIView, ModuleCreateAPIView,
     ModuleRetrieveAPIView, ModuleUpdateAPIView,
     ModuleDestroyAPIView, ModuleListAPIView,
-    CourseListAPIView)
-    # index
+    CourseListAPIView, CourseListUsersAPIView,
+    CourseListPurchasedAPIView)
+
 
 app_name = MaterialsConfig.name
 
@@ -25,7 +26,10 @@ urlpatterns = [
          name='course_update'),
     path('course/delete/<int:pk>/', CourseDestroyAPIView.as_view(),
          name='course_delete'),
-    path('list/', CourseListAPIView.as_view(), name='course_list'),
+    path('courses_list/', CourseListAPIView.as_view(), name='course_list'),
+    # курс
+    path('list/', CourseListPurchasedAPIView.as_view(), name='course_list'),
+    path('list_user/', CourseListUsersAPIView.as_view(), name='course_list_users'),
     # модуль
     path('modules/create/', ModuleCreateAPIView.as_view(),
          name='module_create'),
@@ -48,10 +52,5 @@ urlpatterns = [
          name='lesson_update'),
     path('lesson/delete/<int:pk>/', LessonDestroyAPIView.as_view(),
          name='lesson_delete'),
-
-    # фронт
-    # path('index/', CourseListAPIView.as_view(), name='list'),
-    # path('course_create/', CourseCreateAPIView.as_view(), name='course_create'),
-    # path('course_update/<int:pk>/', CourseUpdateAPIView.as_view(), name='course_update'),
 
 ]

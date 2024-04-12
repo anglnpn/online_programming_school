@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from materials.models import Course
@@ -16,12 +16,15 @@ class SubscribeTestCase(APITestCase):
     def setUp(self) -> None:
         self.user = User.objects.create(
             name='Test', surname='Test',
-            email='test@t.com', is_superuser=True)
+            email='test@t.com', is_superuser=True,
+            is_staff=True)
         self.user_2 = User.objects.create(
             name='Test2', surname='Test2', email='test2@t.com')
         self.course = Course.objects.create(
             author=self.user, name_course='Course Name',
             description='Course Description', price=100)
+
+        self.client = APIClient()
 
     def test_create_subscribe(self):
         """
@@ -67,7 +70,8 @@ class PaymentsTestCase(APITestCase):
             name='Test',
             surname='Test',
             email='test@t.com',
-            is_superuser=True)
+            is_superuser=True,
+            is_staff=True)
         self.user_2 = User.objects.create(
             name='Test2', surname='Test2', email='test2@t.com')
         self.course = Course.objects.create(
@@ -90,6 +94,8 @@ class PaymentsTestCase(APITestCase):
             payment_amount=1000000,
             payment_session_id='123456789012345',
             payment_status='successes')
+
+        self.client = APIClient()
 
     def test_create_payments(self):
         """

@@ -1,0 +1,28 @@
+.user-profile {
+  background: gray;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user-profile h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-profile-info {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-info p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.user-profile-info p:last-child {
+  margin-bottom: 0;
+}
+
