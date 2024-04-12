@@ -6,9 +6,9 @@ from users.models import User
 from search_engine.models import Text
 
 
-class UserTestCase(APITestCase):
+class SearchTestCase(APITestCase):
     """
-    Тестирование работы с пользователем.
+    Тестирование работы с поисковиком.
     """
 
     def setUp(self) -> None:
@@ -27,6 +27,7 @@ class UserTestCase(APITestCase):
             text='Тест текста',
             created_date='2024-04-01 21:35:07.891282+05'
         )
+        self.client = APIClient()
 
         self.client = APIClient()
 
@@ -34,6 +35,7 @@ class UserTestCase(APITestCase):
         """
         Тестирование создания текста
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
             "id": 1,
@@ -53,9 +55,6 @@ class UserTestCase(APITestCase):
             response.status_code,
             status.HTTP_201_CREATED
         )
-        # Проверяем, что пользователь действительно создан
-        created_user = User.objects.get(email='test_usachev@sky.com')
-        self.assertIsNotNone(created_user)
 
     def test_list_user(self):
         """
@@ -126,6 +125,7 @@ class UserTestCase(APITestCase):
         """
         Тестирование поиска текста
         """
+        self.client.force_authenticate(user=self.user)
 
         data = {
             'query': 'текста',
