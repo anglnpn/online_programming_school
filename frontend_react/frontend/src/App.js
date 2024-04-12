@@ -19,6 +19,8 @@ import Lesson from './components/lesson/Lesson.jsx';
 
 import UserProfile from './components/user_profile/UserProfile.jsx';
 
+import Search from './components/search/Search.jsx';
+
 
 function App() {
     return (
@@ -32,6 +34,7 @@ function App() {
             <Route path="/course/:courseId" element={<CourseDetail />} />
             <Route path="/materials/lesson/:lessonId" element={<Lesson />} />
             <Route path="/user/profile/" element={<UserProfile />} />
+            <Route path="/search/" element={<Search />} />
         </Routes>
       </div>
 

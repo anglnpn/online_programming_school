@@ -13,3 +13,7 @@ class Text(models.Model):
     def __str__(self):
         return f"Тема: {self.theme}, дата создания:{self.created_date})"
 
+    class Meta:
+        verbose_name = 'текст'
+        verbose_name_plural = 'тексты'
+

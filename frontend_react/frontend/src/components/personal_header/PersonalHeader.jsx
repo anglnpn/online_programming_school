@@ -30,10 +30,11 @@ function PersonalHeader () {
                     </div>
                     <nav className="header__nav">
                         <ul>
+                            <li><Link to="/search">Поисковик</Link></li>
                             <li><Link to="/user_courses">Мои курсы</Link></li>
                             <li><Link to="/user/profile/">Мой профиль</Link></li> {/* Измененная ссылка на профиль */}
-                            <li><button className="header__nav-btn" onClick={handleLogout}>ВЫЙТИ</button></li>
                             <li><Link to="/">На главную</Link></li>
+                            <li><button className="header__nav-btn" onClick={handleLogout}>ВЫЙТИ</button></li>
                         </ul>
                     </nav>
                 </div>

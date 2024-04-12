@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from users.models import User
@@ -16,7 +16,8 @@ class UserTestCase(APITestCase):
             name='Test',
             surname='Test',
             email='test_usachev@sky.com',
-            is_superuser=True
+            is_superuser=True,
+            is_staff=True
         )
 
         self.text = Text.objects.create(
@@ -26,6 +27,8 @@ class UserTestCase(APITestCase):
             text='Тест текста',
             created_date='2024-04-01 21:35:07.891282+05'
         )
+
+        self.client = APIClient()
 
     def test_create_text(self):
         """
@@ -39,6 +42,7 @@ class UserTestCase(APITestCase):
             "text": "Тест текста",
             "created_date": "2024-04-01 21:35:07.891282+05",
         }
+        self.client.force_authenticate(user=self.user)
 
         response = self.client.post(
             '/search_engine/text/create/',
@@ -140,11 +144,6 @@ class UserTestCase(APITestCase):
             response.status_code,
             status.HTTP_200_OK
         )
-
-        # Дополнительные проверки содержимого ответа, например, наличие ожидаемых данных
-        # self.assertIn('Сообщение', response.data)
-        # self.assertIn('Текст', response.data['hits'][0])
-        # self.assertEqual(response.data['hits'][0]['Текст'], 'Expected Text')
 
     def test_search_text_not_found(self):
         """
