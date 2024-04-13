@@ -1,0 +1,15 @@
+**
+
+!api
+!config
+!habits
+!media
+!users
+!manage.py
+!poetry.lock
+!pyproject.toml
+!config/utils.py
+!.env.sample
+!README.md
+!.gitignore
+

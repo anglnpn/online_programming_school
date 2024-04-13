@@ -12,6 +12,8 @@ import LoginForm from '../login/LoginForm';
 import '../login/login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const SearchForm = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -39,7 +41,7 @@ const SearchForm = () => {
     const query = event.target.elements.q.value;
 
     try {
-      const response = await axios.post('http://localhost:8888/search_engine/text/search/', { query });
+      const response = await axios.post(`${apiUrl}/search_engine/text/search/`, { query });
       setSearchResults(response.data.hits);
       console.log('Response:', response.data.hits);
       setError(null);

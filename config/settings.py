@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / '.env')
+load_dotenv(BASE_DIR / '.env.docker')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -39,24 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
-
     'drf_yasg',
     'corsheaders',
     'django_celery_beat',
-
     'django_elasticsearch_dsl',
 
-    # основа
     'users',
-    'api',
     'materials',
+    'api',
     'payments',
-
-    # поисковик
     'search_engine',
 
 ]
@@ -100,9 +94,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASES_NAME'),
-        'USER': os.getenv('DATABASES_USER'),
-        'PASSWORD': os.getenv('DATABASES_PASSWORD'),
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
+
     }
 }
 
@@ -190,10 +187,6 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# CORS_ORIGIN_WHITELIST = [
-#     os.getenv('CORS_ORIGIN_WHITELIST')
-# ]
-
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
@@ -228,10 +221,3 @@ ELASTICSEARCH_DSL = {
     }
 }
 
-# Настройки для Celery
-# CELERY_BEAT_SCHEDULE = {
-#     'task-name': {
-#         'task': 'users.tasks.checking_users',  # Путь к задаче
-#         'schedule': timedelta(seconds=1),  # Расписание выполнения задачи (например, каждые 10 минут)
-#     },
-# }

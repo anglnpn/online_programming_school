@@ -26,10 +26,10 @@ urlpatterns = [
          name='course_update'),
     path('course/delete/<int:pk>/', CourseDestroyAPIView.as_view(),
          name='course_delete'),
-    path('courses_list/', CourseListAPIView.as_view(), name='course_list'),
+    path('courses_list/', CourseListAPIView.as_view(), name='courses_list'),
     # курс
-    path('list/', CourseListPurchasedAPIView.as_view(), name='course_list'),
-    path('list_user/', CourseListUsersAPIView.as_view(), name='course_list_users'),
+    path('list/', CourseListPurchasedAPIView.as_view(), name='courses_list'),
+    path('list_user/', CourseListUsersAPIView.as_view(), name='courses_list_users'),
     # модуль
     path('modules/create/', ModuleCreateAPIView.as_view(),
          name='module_create'),
