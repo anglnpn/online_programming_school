@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'django_elasticsearch_dsl',
 
     'users',
-    'materials',
     'api',
+    'materials',
     'payments',
     'search_engine',
 
