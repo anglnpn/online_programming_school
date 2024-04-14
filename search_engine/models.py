@@ -5,7 +5,8 @@ from config.settings import NAME_CHOICES
 
 class Text(models.Model):
     id = models.AutoField(primary_key=True)
-    rubrics = models.CharField(max_length=100, verbose_name='рубрики', choices=NAME_CHOICES)
+    rubrics = models.CharField(
+        max_length=100, verbose_name='рубрики', choices=NAME_CHOICES)
     theme = models.CharField(max_length=100, verbose_name='темы')
     text = models.TextField(verbose_name='текст')
     created_date = models.DateTimeField(auto_now_add=True)
