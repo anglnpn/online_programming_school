@@ -71,7 +71,7 @@ class TextSearchAPIView(APIView):
 
     def post(self, request):
         hits_list = []
-        query = request.data.get('query')
+        query = request.data.post('query')
 
         logging.info(f"request '{request}'.")
         logging.info(f"request.data '{request.data}'.")

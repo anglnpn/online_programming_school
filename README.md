@@ -75,7 +75,7 @@ http://localhost:8000/search_engine/text/create/
 11. CRUD для текста реализуется по адресам в соответствии со ссылками, описанными в urls.py.
 12. Запуск периодических задач:
 ```
-celery -A config worker -l info -P eventlet
+celery -A config worker -l info
 celery -A config beat -l info
 ```
 13. Запуск Redis на Windows:
