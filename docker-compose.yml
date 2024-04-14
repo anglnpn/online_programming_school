@@ -36,7 +36,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - '8000:8000'
+      - '8001:8000'
     env_file:
       - .env.docker
     volumes:
@@ -72,12 +72,26 @@ services:
       context: ./frontend_react/frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - db
       - app
       - celery
       - redis
+
+  elasticsearch:
+    image: elasticsearch:8.12.2
+    environment:
+      - discovery.type=single-node
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    depends_on:
+      - db
+      - app
+      - celery
+      - redis
+      - client
 
 
 volumes:
