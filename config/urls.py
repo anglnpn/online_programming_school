@@ -36,7 +36,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     # материалы
-    path('materials/', include('materials.urls', namespace='materials')),
+    path('materials/', include('course_materials.urls', namespace='course_materials')),
     # пользователи
     path('user/', include('users.urls', namespace='users')),
     # JWT

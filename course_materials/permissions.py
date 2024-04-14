@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 
-from materials.models import Course, Module, Lesson
+from course_materials.models import Course, Module, Lesson
 from payments.models import Payments
 
 

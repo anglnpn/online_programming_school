@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase
 
-from materials.models import Course, Module
-from materials.serializers import (
+from course_materials.models import Course, Module
+from course_materials.serializers import (
     LessonSerializer, ModuleSerializer,
     CourseSerializer)
 from users.models import User

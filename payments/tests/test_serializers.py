@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from materials.models import Course
+from course_materials.models import Course
 from payments.models import Payments
 from payments.serializers import (
     PaymentsSerializer, SubscribeSerializer)

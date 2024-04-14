@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from materials.validators import MaterialLinkValidator
+from course_materials.validators import MaterialLinkValidator
 from rest_framework.exceptions import ValidationError
 
 

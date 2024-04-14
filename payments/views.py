@@ -2,8 +2,8 @@ from rest_framework import generics, filters
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from materials.models import Course
-from materials.services import convert_currencies
+from course_materials.models import Course
+from course_materials.services import convert_currencies
 
 from payments.models import Subscribe, Payments
 from payments.permissions import IsModerPayment, IsContributor
