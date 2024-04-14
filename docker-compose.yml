@@ -79,19 +79,16 @@ services:
       - celery
       - redis
 
+
   elasticsearch:
     image: elasticsearch:8.12.2
     environment:
-      - discovery.type=single-node
+      - "ELASTICSEARCH_USERNAME=elastic"
+      - "ELASTICSEARCH_PASSWORD=5GjVxI52S9wxns6DBNe4p4tZ"
     ports:
       - '9200:9200'
       - '9300:9300'
-    depends_on:
-      - db
-      - app
-      - celery
-      - redis
-      - client
+
 
 
 volumes:
