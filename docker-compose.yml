@@ -31,7 +31,7 @@ services:
   app:
     build: .
     tty: true
-    command:  bash -c "python3 manage.py migrate && python"
+    command:  bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       db:
         condition: service_healthy
