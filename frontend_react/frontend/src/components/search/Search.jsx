@@ -59,7 +59,7 @@ const SearchForm = () => {
                 <div className="header__row">
                     <div className="header__logo">
                         <img src={logo} alt="Logo" />
-                        <span>OnlineSchool</span>
+
                     </div>
                     <nav className="header__nav">
                         <ul>
@@ -88,7 +88,9 @@ const SearchForm = () => {
                   </div>
                 </ul>
               ) : (
-                <p>Результаты поиска отсутствуют</p>
+                <div className="error-message">
+                    <p>Результаты поиска отсутствуют</p>
+                </div>
               )}
             </div>
             {showLoginForm && (

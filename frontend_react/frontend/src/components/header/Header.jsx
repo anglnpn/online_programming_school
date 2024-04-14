@@ -58,7 +58,7 @@ function Header() {
                         <ul>
                             <li><a href="/search">Поисковик</a></li>
                             {isLoggedIn && (
-                                <li><a href="/personal">Домой</a></li>
+                                <li><a href="/personal">Личный кабинет</a></li>
 
                             )}
 

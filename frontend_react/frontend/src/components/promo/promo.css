@@ -5,7 +5,7 @@
 
 .promo__content {
     border-radius: 59px;
-    background-color: gray;
+    background-color: #9E0082;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,7 +30,9 @@
 }
 
 .promo__image {
-    max-width: 50%;
+    max-width: 30%;
+    border: 30px solid black;
+    border-radius: 10px;
 }
 
 .promo__btn {
