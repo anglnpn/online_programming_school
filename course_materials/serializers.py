@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from materials.models import Course, Lesson, Module
-from materials.services import convert_currencies
-from materials.validators import MaterialLinkValidator
+from course_materials.models import Course, Lesson, Module
+from course_materials.services import convert_currencies
+from course_materials.validators import MaterialLinkValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):

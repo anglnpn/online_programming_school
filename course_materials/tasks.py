@@ -4,7 +4,7 @@ from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
 
-from materials.models import Course
+from course_materials.models import Course
 from payments.models import Subscribe
 from users.models import User
 

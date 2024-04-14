@@ -1,8 +1,8 @@
 from django.urls import path
 
-from materials.apps import MaterialsConfig
+from course_materials.apps import CourseMaterialsConfig
 
-from materials.views import (
+from course_materials.views import (
     CourseCreateAPIView, CourseRetrieveAPIView,
     CourseUpdateAPIView, CourseDestroyAPIView,
     LessonCreateAPIView, LessonListAPIView,
@@ -14,7 +14,7 @@ from materials.views import (
     CourseListPurchasedAPIView)
 
 
-app_name = MaterialsConfig.name
+app_name = CourseMaterialsConfig.name
 
 urlpatterns = [
     # курс

@@ -1,10 +1,10 @@
 import unittest
 from datetime import datetime
 
-from materials.models import Course
+from course_materials.models import Course
 from payments.models import Subscribe, Payments
 from users.models import User
-from materials.tasks import send_moderator_email
+from course_materials.tasks import send_moderator_email
 
 
 class TestSendMailingTask(unittest.TestCase):

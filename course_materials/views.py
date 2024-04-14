@@ -2,15 +2,15 @@ from datetime import datetime
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from materials.models import Course, Lesson, Module
-from materials.paginators import MaterialsPagination
-from materials.permissions import IsModer, IsUserPaymentStatus
-from materials.serializers import (CourseSerializer,
-                                   LessonSerializer,
-                                   ModuleSerializer,
-                                   CourseListSerializer)
+from course_materials.models import Course, Lesson, Module
+from course_materials.paginators import MaterialsPagination
+from course_materials.permissions import IsModer, IsUserPaymentStatus
+from course_materials.serializers import (CourseSerializer,
+                                          LessonSerializer,
+                                          ModuleSerializer,
+                                          CourseListSerializer)
 
-from materials.tasks import send_moderator_email
+from course_materials.tasks import send_moderator_email
 
 from payments.models import Payments
 

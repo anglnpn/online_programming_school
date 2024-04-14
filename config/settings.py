@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     'users',
     'api',
-    'materials',
+    'course_materials',
     'payments',
     'search_engine',
 

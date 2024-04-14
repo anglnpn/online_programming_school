@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
-from materials.models import Course, Lesson, Module
+from course_materials.models import Course, Lesson, Module
 from payments.models import Payments
 
 from users.models import User
