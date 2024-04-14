@@ -3,8 +3,9 @@
     margin: 20px auto;
     width: 100%;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
+
 }
 
 .card__container {
@@ -12,8 +13,8 @@
 }
 
 .card__img {
-    width: 50%; /* Занимает всю ширину контейнера */
-    height: auto; /* Автоматически подстраивается по высоте */
+    width: 50%;
+    height: auto;
     border-radius: 8px;
     margin-bottom: 20px;
 }
@@ -30,12 +31,13 @@
 }
 
 .card__content {
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .card__button {
-    margin-top: 20px;
+    margin-top: 50px;
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -52,8 +54,10 @@
     outline: none;
 }
 
+
 .video__player {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
+    margin-left: 440px;
 }

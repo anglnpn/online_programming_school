@@ -57,6 +57,13 @@ class Module(models.Model):
         auto_now=True, verbose_name='дата изменения',
         **NULLABLE)
 
+    def __str__(self):
+        return f'{self.name_module}'
+
+    class Meta:
+        verbose_name = 'модуль'
+        verbose_name_plural = 'модули'
+
 
 class Lesson(models.Model):
     """
