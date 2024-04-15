@@ -1,8 +1,10 @@
 .title {
-    background-color: gray;
+    background-color: #8669D1;
     border-radius: 10px;
     padding: 40px;
     font-weight: 900;
     font-size: 22px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    color: white;
 }

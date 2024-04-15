@@ -3,7 +3,7 @@
 .card {
     background-color: #9E0082;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 20px;
     margin-bottom: 20px;
     padding: 20px;
 }
@@ -22,16 +22,16 @@
 }
 
 .card__img {
-    width: 1000%; /* Растягиваем картинку на всю ширину */
-    max-width: 200px; /* Максимальная ширина картинки */
+    width: 100%;
+    max-width: 200px;
     height: auto;
-    max-height: 100px; /* Максимальная высота картинки */
+    max-height: 100px;
     margin-bottom: 10px;
-    border-radius: 5px; /* Добавляем скругление углов для картинки */
+    border-radius: 5px;
 }
 
 .card__title {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
@@ -39,9 +39,9 @@
 }
 
 .card__desc {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     color: white;
 }
@@ -55,8 +55,12 @@
 .card__lesson {
     background-color: #F1C0FC;
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: calc(50% - 10px);
+    min-width: 200px; /* Устанавливаем минимальную ширину */
+    height: 200px; /* Устанавливаем высоту */
+    min-height: 200px; /* Устанавливаем минимальную высоту */
     margin-bottom: 20px;
     border: 10px solid white;
     border-radius: 5px;
@@ -65,8 +69,11 @@
 }
 
 .lesson__button {
+    margin-bottom: 20px;
+    width: 150px; /* Фиксированная ширина */
+    height: 40px; /* Фиксированная высота */
     padding: 10px 20px;
-    font-size: 10px;
+    font-size: 14px; /* Размер текста */
     border: none;
     border-radius: 5px;
     background-color: black;
@@ -75,13 +82,34 @@
 }
 
 .lesson__button:hover {
-    background-color: red;
+    background-color: green;
 }
 
 .lesson__title {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 50px;
     text-align: center;
     color: #9E0082;
 }
+
+.lesson__desc {
+
+    font-size: 18px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #9E0082;
+    line-height: 1.5;
+    letter-spacing: -0.03em;
+
+    }
+
+.cars__numb {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    }

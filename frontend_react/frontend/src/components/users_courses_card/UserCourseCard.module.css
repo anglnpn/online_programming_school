@@ -1,36 +1,25 @@
-.card {
-    background-color: #9E0082;
-    border-radius: 10px;
-}
-
-.card_list {
-    display: flex;
-}
-
 .card__container {
-    flex: 10px;
-    margin-bottom: 10px;
-}
-
-.card__img {
-    margin-bottom: 10px;
+    padding: 20px; /* добавляем внутренний отступ для контента карточки */
     border-radius: 20px;
+    background-color: #9E0082;
+    max-width: 500px; /* устанавливаем максимальную ширину карточки */
+    margin: 0 auto 20px; /* центрируем карточку по горизонтали */
 }
 
 .card__body {
     display: flex;
-    justify-content: space-between;
-    column-gap: 10px;
-    align-items: center;
+    flex-direction: column; /* располагаем элементы друг за другом */
+    gap: 10px; /* добавляем промежуток между элементами */
+    justify-content: center; /* выравниваем элементы по центру вертикально */
 }
 
 .card__title {
-    margin-bottom: 7px;
     font-size: 32px;
     font-weight: 500;
     line-height: 1.56;
     letter-spacing: -0.04em;
-    color: black;
+    color: white;
+    margin: 0; /* убираем внешние отступы */
 }
 
 .card__desc {
@@ -38,19 +27,30 @@
     font-size: 24px;
     line-height: 2.08;
     letter-spacing: -0.04em;
-    color: red;
+    color: white;
+    margin: 0; /* убираем внешние отступы */
 }
 
 .card__button {
-    padding: 10px 20px;
+    padding: 8px 12px;
     background-color: black;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: auto;
 }
 
 .card__button:hover {
-    background-color: red;
+    background-color: green;
+}
+
+.card__count {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 2.08;
+    letter-spacing: -0.04em;
+    color: white;
+    margin: 0; /* убираем внешние отступы */
 }

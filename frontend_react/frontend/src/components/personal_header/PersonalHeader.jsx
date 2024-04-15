@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './../../img/icons/logo.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import './personheader.css';
+import LoginForm from '../login/LoginForm';
 
 function PersonalHeader () {
     const history = useNavigate();
@@ -30,11 +31,14 @@ function PersonalHeader () {
                     </div>
                     <nav className="header__nav">
                         <ul>
-                            <li><Link to="/search">Поисковик</Link></li>
-                            <li><Link to="/user_courses">Мои курсы</Link></li>
-                            <li><Link to="/user/profile/">Мой профиль</Link></li> {/* Измененная ссылка на профиль */}
                             <li><Link to="/">На главную</Link></li>
-                            <li><button className="header__nav-btn" onClick={handleLogout}>ВЫЙТИ</button></li>
+                            <li><Link to="/search">Поисковик</Link></li>
+                            <li><a href="/personal">Доступные курсы</a></li>
+                            <li><a href="/user_courses">Мои курсы</a></li>
+
+                            <li><Link to="/user/profile/">Мой профиль</Link></li> {/* Измененная ссылка на профиль */}
+
+                            <li><button className="header__nav-btn" onClick={handleLogout}>Выйти</button></li>
                         </ul>
                     </nav>
                 </div>

@@ -52,11 +52,11 @@ const CourseCard = ({ course }) => {
                     <img className={styles.card__img} src={course.image} alt="img" />
                     <div className={styles.card__title}>{course.name_course}</div>
                     <div className={styles.card__desc}>{course.description}</div>
-                    <div className={styles.card__count}>{course.modules_count}</div>
-                    <div className={styles.card__price}>{course.price}</div>
-                    <button onClick={handleCourseDetails} className={styles.card__button}>Пройти курс</button>
+                    <div className={styles.card__count}>Количество модулей: {course.modules_count}</div>
+
+                    <button onClick={handleCourseDetails} className={styles.card__button}>ПРОЙТИ КУРС</button>
                     <button onClick={handleSubscribeToggle} className={styles.card__button}>
-                        {isSubscribed ? 'Отписаться' : 'Подписаться'}
+                        {isSubscribed ? 'ОТПИСАТЬСЯ' : 'ПОДПИСАТЬСЯ НА ОБНОВЛЕНИЯ'}
                     </button>
                 </div>
             </div>
