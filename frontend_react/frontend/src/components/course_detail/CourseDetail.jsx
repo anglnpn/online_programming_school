@@ -31,7 +31,7 @@ const CourseDetail = () => {
     return (
         <div>
             <PersonalHeader />
-            <div className="title">{course.name_course}</div>
+            <div className="title_course">{course.name_course}</div>
             <div className="course-list">
                 {modules.map(module => (
                     <ModCard key={module.id} module={module} />

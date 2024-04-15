@@ -57,8 +57,16 @@ function Header() {
                     <nav className="header__nav">
                         <ul>
                             <li><a href="/search">Поисковик</a></li>
+
                             {isLoggedIn && (
-                                <li><a href="/personal">Личный кабинет</a></li>
+
+                                <li><a href="/personal">Доступные курсы</a></li>
+
+                            )}
+
+                            {isLoggedIn && (
+
+                                <li><a href="/user_courses">Мои курсы</a></li>
 
                             )}
 

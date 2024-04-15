@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 00px;
+  margin-right: 150px;
 }
 
 .search-container form {
@@ -12,6 +13,8 @@
   border: 3px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
+  margin-left: 20px;
+  background: white;
 }
 
 .search-container input[type="search"] {
@@ -19,6 +22,8 @@
   padding: 10px;
   border: none;
   outline: none;
+
+
 }
 
 .search-container button {
@@ -37,9 +42,11 @@
 
 .search-header {
   background-color: #f0f0f0;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
   border-bottom: 2px solid #ccc;
 }
+
+

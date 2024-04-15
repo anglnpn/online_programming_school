@@ -11,6 +11,7 @@ import Header from '../header/Header';
 import LoginForm from '../login/LoginForm';
 import '../login/login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import '../personal_header/personheader.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -19,6 +20,30 @@ const SearchForm = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(null);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useNavigate();
+
+
+  useEffect(() => {
+        // Проверяем, есть ли токен в localStorage
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token); // Устанавливаем состояние аутентификации в зависимости от наличия токена
+    }, []);
+
+  const handleLogout = () => {
+        setShowConfirmLogoutModal(true);
+    };
+
+  const handleLogoutConfirm = () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        history("/");
+    };
+
+    const handleLogoutCancel = () => {
+        setShowConfirmLogoutModal(false);
+    };
 
   const handleLoginClick = () => {
         setShowLoginForm(true);
@@ -28,6 +53,10 @@ const SearchForm = () => {
         setShowLoginForm(false);
     };
 
+    const handleLogoutClick = () => {
+        setShowConfirmLogoutModal(true); // Показываем модальное окно при выходе
+    };
+
     const handleOpenLoginForm = () => {
         setShowLoginForm(true);
     };
@@ -35,6 +64,7 @@ const SearchForm = () => {
     const handleCloseLoginForm = () => {
         setShowLoginForm(false);
     };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,10 +99,22 @@ const SearchForm = () => {
                                   <button type="submit">Найти</button>
                                 </form>
                             </div>
-                            <li><Link to="/search">Поисковик</Link></li>
-                            <li><Link to="/">Домой</Link></li>
+
+                            <li><Link to="/">На главную</Link></li>
+
+                            {isLoggedIn && (
+
+                                <li><a href="/user_courses">Мои курсы</a></li>
+
+                            )}
+
                             <li><Link to="#about">О нас</Link></li>
-                            <li><button onClick={handleOpenLoginForm} className="header__nav-btn">Войти</button></li>
+
+                            {isLoggedIn ? (
+                                <li><button onClick={handleLogoutClick} className="header__nav-btn">Выйти</button></li>
+                            ) : (
+                                <li><button onClick={handleLoginClick} className="header__nav-btn">Войти</button></li>
+                            )}
                         </ul>
                     </nav>
                 </div>
@@ -100,10 +142,20 @@ const SearchForm = () => {
                     </div>
                 </div>
             )}
+            {showConfirmLogoutModal && (
+                <div className="confirm-logout-modal">
+                    <div className="modal-content">
+                        <p>Вы уверены, что хотите выйти?</p>
+                        <div className="modal-buttons">
+                            <button onClick={handleLogoutConfirm} className="logout-confirm">Да</button>
+                            <button onClick={handleLogoutCancel} className="logout-cancel">Нет</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </header>
     );
 }
 
 export default SearchForm;
-

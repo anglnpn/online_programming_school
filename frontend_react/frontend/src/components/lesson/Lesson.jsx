@@ -43,7 +43,7 @@ const Lesson = () => {
                                 <iframe width="560" height="315" src={lesson.link} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                             <div className={styles.card__title}>{lesson.name_lesson}</div>
-                            <div className={styles.card__desc}>{lesson.description}</div>
+
                             <div className={styles.card__content}>{lesson.content}</div>
                         </div>
                     </div>

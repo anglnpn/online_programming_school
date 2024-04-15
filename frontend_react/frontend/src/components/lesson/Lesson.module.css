@@ -5,6 +5,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
+    background-color: #D0C1F5;
 
 }
 
@@ -37,9 +38,10 @@
 }
 
 .card__button {
+    margin-right: 1500px;
     margin-top: 50px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #4F2F9E;
     color: white;
     border: none;
     border-radius: 5px;

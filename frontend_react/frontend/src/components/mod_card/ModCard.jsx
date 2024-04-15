@@ -15,6 +15,7 @@ const ModCard = ({ module }) => {
             <div className={styles.card__container}>
                 <div className={styles.card__body}>
                     <img className={styles.card__img} src={module.image} alt="Изображение модуля" />
+                    <div className={styles.cars__numb}>{module.sequence_number}</div>
                     <div className={styles.card__title}>{module.name_module}</div>
                     <div className={styles.card__desc}>{module.description}</div>
                     <div className={styles.card__lessons}>
@@ -23,6 +24,7 @@ const ModCard = ({ module }) => {
                                 <img src={lesson.image} alt="Изображение урока" />
                                 <div className={styles.lesson__details}>
                                     <span className={styles.lesson__title}>{lesson.name_lesson}</span>
+                                    <span className={styles.lesson__desc}>{lesson.description}</span>
                                     <button onClick={() => handleLessonDetails(lesson.id)} className={styles.lesson__button}>ПРОЙТИ УРОК</button>
                                 </div>
                             </div>
