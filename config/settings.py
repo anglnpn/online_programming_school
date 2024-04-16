@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / '.env.docker')
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -187,7 +187,6 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
@@ -207,17 +206,16 @@ CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED')
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-
 NAME_CHOICES = [
     ('Введение в Git', 'Введение в Git'),
     ('Введение в Postgres', 'Введение в Postgres'),
     ('Введение в Django', 'Введение в Django'),
 ]
 
+
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': [{'host': 'localhost', 'port': 9200, 'scheme': 'http'}],
-        'http_auth': ('elastic', '5GjVxI52S9wxns6DBNe4p4tZ')  # Если требуется аутентификация
+        'hosts': [{'host': os.getenv('ELASTICSEARCH_HOST'), 'port': 9200, 'scheme': 'http'}],
+        'http_auth': (os.getenv('ELASTICSEARCH_USERNAME'), os.getenv('ELASTICSEARCH_PASSWORD')),  # Если требуется аутентификация
     }
 }
-
