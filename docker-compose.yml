@@ -37,6 +37,7 @@ services:
         condition: service_healthy
     ports:
       - '8001:8000'
+
     env_file:
       - .env.docker
     volumes:
@@ -81,10 +82,9 @@ services:
 
 
   elasticsearch:
-    image: elasticsearch:8.12.2
-    environment:
-      - "ELASTICSEARCH_USERNAME=elastic"
-      - "ELASTICSEARCH_PASSWORD=5GjVxI52S9wxns6DBNe4p4tZ"
+    image: elasticsearch:8.13.0
+    env_file:
+      - .env.docker
     ports:
       - '9200:9200'
       - '9300:9300'
