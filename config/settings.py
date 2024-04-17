@@ -215,7 +215,13 @@ NAME_CHOICES = [
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': [{'host': os.getenv('ELASTICSEARCH_HOST'), 'port': 9200, 'scheme': 'http'}],
+        'hosts': [{'host': os.getenv('ELASTICSEARCH_DSL_HOSTS'), 'port': 9200, 'scheme': 'http'}],
         'http_auth': (os.getenv('ELASTICSEARCH_USERNAME'), os.getenv('ELASTICSEARCH_PASSWORD')),  # Если требуется аутентификация
     }
 }
+
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': os.getenv("ELASTICSEARCH_DSL_HOSTS", 'localhost:9200')
+#     },
+# }
