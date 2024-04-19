@@ -1,7 +1,7 @@
 import './promo.css';
 
 import promoImg from './../../img/promo/promo.jpg';
-import styles from './promo.css';
+
 
 const Promo = () => {
     return (
