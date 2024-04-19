@@ -70,7 +70,8 @@ class TextSearchAPIView(APIView):
 
         logging.info(f"request '{request}'.")
         logging.info(f"request.data '{request.data}'.")
-        logging.info(f"Начался поиск точных совпадений по запросу '{query}'.")
+        logging.info(
+            f"Начался поиск точных совпадений по запросу '{query}'.")
 
         if query:
             search_results = TextDocument.search().query(
@@ -105,5 +106,3 @@ class TextSearchAPIView(APIView):
         else:
             return Response({'Ошибка': 'Требуется параметр запроса "query".'},
                             status=status.HTTP_400_BAD_REQUEST)
-
-

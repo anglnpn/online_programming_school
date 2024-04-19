@@ -14,7 +14,8 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class ModuleSerializer(serializers.ModelSerializer):
     lessons_count = serializers.SerializerMethodField()
-    lessons = LessonSerializer(source='lesson_set', many=True, read_only=True)
+    lessons = LessonSerializer(
+        source='lesson_set', many=True, read_only=True)
 
     class Meta:
         model = Module
@@ -28,7 +29,8 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     modules_count = serializers.SerializerMethodField()
-    modules = ModuleSerializer(source='module_set', many=True, read_only=True)
+    modules = ModuleSerializer(
+        source='module_set', many=True, read_only=True)
     price_course = serializers.SerializerMethodField()
 
     class Meta:
@@ -50,9 +52,10 @@ class CourseListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'image', 'name_course', 'description', 'modules_count', 'price']
+        fields = ['id', 'image', 'name_course',
+                  'description', 'modules_count',
+                  'price']
 
     def get_modules_count(self, instance):
         return instance.module_set.count()
-
 

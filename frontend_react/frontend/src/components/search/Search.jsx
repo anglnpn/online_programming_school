@@ -7,6 +7,7 @@ import '../../components/header/header.css';
 
 import ResultCard from '../result_card/ResultCard';
 import Header from '../header/Header';
+import Footer from '../info_form/InfoForm.jsx';
 
 import LoginForm from '../login/LoginForm';
 import '../login/login.css';
@@ -153,8 +154,11 @@ const SearchForm = () => {
                     </div>
                 </div>
             )}
-
+        <Footer />
         </header>
+
+
+
     );
 }
 

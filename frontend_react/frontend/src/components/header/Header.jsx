@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginForm from '../login/LoginForm';
 import ConfirmLogoutModal from './ConfirmLogoutModal'; // Импортируем компонент подтверждения
 import logo from './../../img/icons/logo.jpg';
 import '../login/login.css';
 import './header.css';
+
 
 function Header() {
     const [showLoginForm, setShowLoginForm] = useState(false);
@@ -67,6 +68,12 @@ function Header() {
                             {isLoggedIn && (
 
                                 <li><a href="/user_courses">Мои курсы</a></li>
+
+                            )}
+
+                            {isLoggedIn && (
+
+                                <li><Link to="/user/profile/">Мой профиль</Link></li>
 
                             )}
 

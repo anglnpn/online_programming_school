@@ -24,6 +24,9 @@ class CourseCreateAPIView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated, IsModer]
 
     def perform_create(self, serializer):
+        """
+        Устанавливает автора курса.
+        """
         serializer.save(author=self.request.user)
 
 
@@ -74,7 +77,8 @@ class CourseListUsersAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         """
-        Вывод только купленных курсов с проведенной оплатой
+        Вывод только купленных курсов
+        с проведенной оплатой.
         """
         # получаем текущего пользователя
         user = self.request.user
@@ -83,7 +87,8 @@ class CourseListUsersAPIView(generics.ListAPIView):
             payment_user=user, payment_status='successes')
 
         # Получаем список курсов, которые пользователь купил
-        course_ids = successful_payments.values_list('payment_course__id', flat=True)
+        course_ids = successful_payments.values_list(
+            'payment_course__id', flat=True)
 
         # Возвращаем только купленные курсы
         return self.queryset.filter(id__in=course_ids)

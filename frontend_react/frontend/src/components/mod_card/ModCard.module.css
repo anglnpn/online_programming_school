@@ -27,7 +27,7 @@
     height: auto;
     max-height: 100px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 60px;
 }
 
 .card__title {
@@ -50,6 +50,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
 }
 
 .card__lesson {
@@ -57,10 +58,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: calc(50% - 10px);
-    min-width: 200px; /* Устанавливаем минимальную ширину */
-    height: 200px; /* Устанавливаем высоту */
-    min-height: 200px; /* Устанавливаем минимальную высоту */
+    width: 400px;
+    min-width: 100px; /* Устанавливаем минимальную ширину */
+    height: 300px; /* Устанавливаем высоту */
+    min-height: 200px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     border: 10px solid white;
     border-radius: 5px;
@@ -69,7 +72,8 @@
 }
 
 .lesson__button {
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
     width: 150px; /* Фиксированная ширина */
     height: 40px; /* Фиксированная высота */
     padding: 10px 20px;
@@ -88,8 +92,8 @@
 .lesson__title {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 40px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
     color: #9E0082;
 }
@@ -97,8 +101,8 @@
 .lesson__desc {
 
     font-size: 18px;
-    margin-top: 40px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
     color: #9E0082;
     line-height: 1.5;
@@ -106,10 +110,21 @@
 
     }
 
+.lesson_image {
+    width: 50%;
+    height: auto;
+    max-height: 100px;
+
+    border-radius: 5px;
+    padding: 13px 22px 17px;
+}
+
+
 .cars__numb {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+
     color: white;
     }

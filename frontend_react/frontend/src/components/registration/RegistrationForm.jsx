@@ -8,6 +8,8 @@ const RegistrationForm = ({ onRegistration }) => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordsMatch, setPasswordsMatch] = useState(true); // Состояние для проверки совпадения паролей
 
     const handleClick = () => {
         window.location.href = '/';
@@ -15,6 +17,13 @@ const RegistrationForm = ({ onRegistration }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        // Проверяем совпадение паролей
+        if (password !== confirmPassword) {
+            setPasswordsMatch(false);
+            return;
+        }
+
         axios.post('http://127.0.0.1:8000/user/create/', {
             email: email,
             password: password,
@@ -42,8 +51,10 @@ const RegistrationForm = ({ onRegistration }) => {
             <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} placeholder="Фамилия" className="registration-form-input" />
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Электронная почта" className="registration-form-input" />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" className="registration-form-input" />
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Подтвердите пароль" className="registration-form-input" />
+            {!passwordsMatch && <p className="error-message">Пароли не совпадают</p>} {/* Отображаем сообщение об ошибке */}
             <button type="submit" className="registration-form-button">Зарегистрироваться</button>
-            <button onClick={handleClick} className="close-btn">х</button>
+            <button onClick={handleClick} className="close-btn">x</button>
         </form>
     );
 };

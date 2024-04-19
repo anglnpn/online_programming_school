@@ -2,13 +2,12 @@
     display: flex;
     justify-content: center; /* Центрирование по горизонтали */
     align-items: center; /* Центрирование по вертикали */
-    height: 100vh; /* Занимает всю высоту экрана */
 }
 
 .card__container {
     flex: 1;
-    max-width: 300px;
-    margin: 0 20px 20px 0;
+    max-width: 200px;
+    margin: 0 200px 0px 0;
 }
 
 .card__img {
@@ -29,7 +28,7 @@
     font-weight: 500;
     line-height: 1.56;
     letter-spacing: -0.04em;
-    color: black;
+    color: yellow;
 }
 
 .card__desc {
@@ -37,5 +36,5 @@
     font-size: 24px;
     line-height: 2.08;
     letter-spacing: -0.04em;
-    color: red;
+    color: white;
 }

@@ -73,7 +73,6 @@ class SubscribeSerializerTest(APITestCase):
             payment_amount=100000, payment_method='transfer',
             payment_status='successes')
 
-
     def test_valid_data(self):
         """
         Проверяет, что сериализатор

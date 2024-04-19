@@ -12,6 +12,8 @@ const UserProfile = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [surname, setSurname] = useState('');
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
@@ -23,6 +25,8 @@ const UserProfile = () => {
                 setName(response.data.name); // Устанавливаем начальные значения имени и электронной почты
                 setEmail(response.data.email);
                 setSurname(response.data.surname);
+                setCountry(response.data.country);
+                setCity(response.data.city);
                 setPassword(response.data.password);
                 setLoading(false);
             } catch (error) {
@@ -36,7 +40,7 @@ const UserProfile = () => {
     const handleUpdateProfile = async () => {
         try {
             const response = await api.put(`/user/update/${userData.id}/`, {
-                name, surname, email, password
+                name, surname, email, password, country, city,
             });
             console.log('Профиль успешно обновлен:', response.data);
             // Обновляем информацию о пользователе после успешного обновления профиля
@@ -72,8 +76,10 @@ const UserProfile = () => {
                         <p>Имя: {userData.name}</p>
                         <p>Фамилия: {userData.surname}</p>
                         <p>Email: {userData.email}</p>
-                        <button onClick={() => setShowEditModal(true)}>Редактировать профиль</button>
-                        <button onClick={handleDeleteProfile}>Удалить профиль</button>
+                        <p>Страна: {userData.country}</p>
+                        <p>Город: {userData.city}</p>
+                        <button onClick={() => setShowEditModal(true)} className="button" >Редактировать профиль</button>
+                        <button onClick={handleDeleteProfile} className="button">Удалить профиль</button>
                     </div>
                 )}
             </div>
@@ -94,6 +100,14 @@ const UserProfile = () => {
                         <label>
                             Фамилия:
                             <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} />
+                        </label>
+                        <label>
+                            Страна:
+                            <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
+                        </label>
+                        <label>
+                            Город:
+                            <input type="text" value={city} onChange={(e) => setCity(e.target.value)} />
                         </label>
                         <button onClick={() => setShowEditModal(false)}>Закрыть</button>
                         <button onClick={handleUpdateProfile}>Сохранить</button>

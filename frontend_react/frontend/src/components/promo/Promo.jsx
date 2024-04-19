@@ -1,6 +1,7 @@
 import './promo.css';
 
 import promoImg from './../../img/promo/promo.jpg';
+import styles from './promo.css';
 
 const Promo = () => {
     return (
@@ -14,14 +15,9 @@ const Promo = () => {
                         <div className="promo__desc">
                             Регистрируйся, покупай курс и приступай к обучению.
                         </div>
-                        <div className="promo__btn-wrapper">
-                            <a href="#!" className="promo__btn">
-                                Зарегистрироваться
-                            </a>
-                        </div>
                     </div>
                     <div className="promo__img">
-                        <img src={promoImg} alt="Promo" />
+                        <img src={promoImg} alt="Promo" width="500px" height="500px"/>
                     </div>
                 </div>
             </div>

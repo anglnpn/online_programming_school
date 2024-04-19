@@ -1,6 +1,5 @@
 
 .card {
-    margin: 20px auto;
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -10,7 +9,13 @@
 }
 
 .card__container {
-    padding: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+
 }
 
 .card__img {
@@ -26,15 +31,13 @@
     margin-top: 10px;
 }
 
-.card__desc {
-    font-size: 18px;
-    margin-top: 10px;
-}
 
 .card__content {
     font-size: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 .card__button {
