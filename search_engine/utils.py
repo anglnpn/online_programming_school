@@ -8,7 +8,7 @@ from .models import Text
 class TextDocument(Document):
     class Index:
         # Имя elastic-индекса
-        name = 'text1'
+        name = 'product'
         # Настройки elastic
         settings = {'number_of_shards': 1,
                     'number_of_replicas': 0}
@@ -24,4 +24,3 @@ class TextDocument(Document):
             'text',
             'created_date',
         ]
-

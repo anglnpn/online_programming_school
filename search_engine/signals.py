@@ -13,7 +13,8 @@ logging.basicConfig(level=logging.INFO)
 def create_elastic_text(sender, instance, created, **kwargs):
     """
     Сигнал, который создает и сохраняет индекс, если он еще не был создан.
-    Обрабатывает запрос, если индекс с таким именем уже существует при создании экземпляра класса Text(models).
+    Обрабатывает запрос, если индекс с таким именем уже
+    существует при создании экземпляра класса Text(models).
     """
 
     logging.info("Сигнал успешно сработал")
@@ -27,6 +28,10 @@ def create_elastic_text(sender, instance, created, **kwargs):
         # Если индекс еще не создан
         else:
             TextDocument.init()
-            logging.info(f"Индекс '{TextDocument.Index.name}' создан для '{instance}'")
+            logging.info(
+                f"Индекс '{TextDocument.Index.name}' "
+                f"создан для '{instance}'")
     else:
-        logging.info("Экземпляр класса Text был удален или создан с ошибкой. Попробуйте еще раз.")
+        logging.info(
+            "Экземпляр класса Text был удален или создан с ошибкой. "
+            "Попробуйте еще раз.")

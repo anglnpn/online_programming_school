@@ -15,8 +15,8 @@ class Course(models.Model):
         verbose_name='автор')
     name_course = models.CharField(
         max_length=50, verbose_name='название курса')
-    image = models.ImageField(
-        upload_to='media/', verbose_name='картинка курса',
+    image = models.CharField(
+        max_length=200, verbose_name='ссылка на картинку',
         **NULLABLE)
     description = models.CharField(
         max_length=500, verbose_name='описание курса')
@@ -50,8 +50,8 @@ class Module(models.Model):
         max_length=50, verbose_name='название модуля')
     description = models.TextField(
         verbose_name='описание модуля')
-    image = models.ImageField(
-        upload_to='static/', verbose_name='картинка модуля',
+    image = models.CharField(
+        max_length=200, verbose_name='ссылка на картинку',
         **NULLABLE)
     update_date = models.DateTimeField(
         auto_now=True, verbose_name='дата изменения',
@@ -77,8 +77,8 @@ class Lesson(models.Model):
         verbose_name='модуль урока')
     name_lesson = models.CharField(
         max_length=50, verbose_name='название урока')
-    image = models.ImageField(
-        upload_to='static/', verbose_name='картинка урока',
+    image = models.CharField(
+        max_length=200, verbose_name='ссылка на картинку',
         **NULLABLE)
     description = models.TextField(verbose_name='описание урока')
     content = models.TextField(verbose_name='содержание урока')

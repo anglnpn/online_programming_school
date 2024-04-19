@@ -11,5 +11,3 @@ class TextSerializer(serializers.ModelSerializer):
     class Meta:
         model = Text
         fields = '__all__'
-
-

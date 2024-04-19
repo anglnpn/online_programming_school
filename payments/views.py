@@ -10,17 +10,15 @@ from payments.permissions import IsModerPayment, IsContributor
 from payments.serializers import PaymentsSerializer, SubscribeSerializer
 from payments.services import (create_product,
                                create_price,
-                               create_payment_session,
-                               get_payment_status)
+                               create_payment_session)
 
 
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 
-import ast
 
 
 class PaymentsCreateAPIView(generics.CreateAPIView):
@@ -32,7 +30,7 @@ class PaymentsCreateAPIView(generics.CreateAPIView):
     queryset = Payments.objects.all()
     permission_classes = [IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         # получаем экземпляр сериализатора с данными POST-запроса
         serializer = self.get_serializer(data=request.data)
         # Проверяем, что данные валидны
@@ -111,7 +109,7 @@ class SubscribeCreateAPIView(generics.CreateAPIView):
     queryset = Subscribe.objects.all()
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> Response:
         user = self.request.user
         print(user)
         course_id = self.request.data.get('course_id')
