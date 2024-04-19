@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginForm from '../login/LoginForm';
-import ConfirmLogoutModal from './ConfirmLogoutModal'; // Импортируем компонент подтверждения
+import ConfirmLogoutModal from './ConfirmLogoutModal';
 import logo from './../../img/icons/logo.jpg';
 import '../login/login.css';
 import './header.css';
@@ -9,7 +9,7 @@ import './header.css';
 
 function Header() {
     const [showLoginForm, setShowLoginForm] = useState(false);
-    const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false); // Состояние для отображения модального окна
+    const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -43,9 +43,6 @@ function Header() {
         setIsLoggedIn(true); // Устанавливаем состояние аутентификации как true
     };
 
-    const handleHomeClick = () => {
-        navigate('/personal'); // Редирект в личный кабинет
-    };
 
     return (
         <header className="header">

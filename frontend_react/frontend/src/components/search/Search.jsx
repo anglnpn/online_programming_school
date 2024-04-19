@@ -6,7 +6,6 @@ import logo from './../../img/icons/logo.jpg';
 import '../../components/header/header.css';
 
 import ResultCard from '../result_card/ResultCard';
-import Header from '../header/Header';
 import Footer from '../info_form/InfoForm.jsx';
 
 import LoginForm from '../login/LoginForm';
@@ -58,13 +57,6 @@ const SearchForm = () => {
         setShowConfirmLogoutModal(true); // Показываем модальное окно при выходе
     };
 
-    const handleOpenLoginForm = () => {
-        setShowLoginForm(true);
-    };
-
-    const handleCloseLoginForm = () => {
-        setShowLoginForm(false);
-    };
 
 
   const handleSubmit = async (event) => {
