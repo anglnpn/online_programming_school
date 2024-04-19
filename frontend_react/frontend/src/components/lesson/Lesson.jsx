@@ -5,6 +5,8 @@ import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import PersonalHeader from '../personal_header/PersonalHeader'
 
+
+
 const Lesson = () => {
     const { lessonId } = useParams();
     const [lesson, setLesson] = useState();
@@ -38,9 +40,8 @@ const Lesson = () => {
                 <div className={styles.card}>
                     <div className={styles.card__container}>
                         <div className={styles.card__body}>
-                            <img className={styles.card__img} src={lesson.image} alt="Изображение урока" />
                             <div className={styles.video__player}>
-                                <iframe width="560" height="315" src={lesson.link} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe width="800" height="400" src={lesson.link} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
                             <div className={styles.card__title}>{lesson.name_lesson}</div>
 

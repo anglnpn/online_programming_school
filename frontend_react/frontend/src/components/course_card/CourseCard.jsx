@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CourseCard.module.css';
 import api from '../../api';
-import img from './../../img/course/course.jpg';
+
 
 const CourseCard = ({ course }) => {
 
@@ -34,7 +34,7 @@ const CourseCard = ({ course }) => {
     <div className={styles.card}>
         <div className={styles.card__container}>
             <div className={styles.card__body}>
-            <img className={styles.card__img} src={img} alt="img" />
+            <img className={styles.card__img} src={course.image} alt="img" />
                 <div className={styles.card__title}>{course.name_course}</div>
                 <div className={styles.card__desc}>{course.description}</div>
                 <div className={styles.card__count}>Количество образовательных модулей: {course.modules_count}</div>

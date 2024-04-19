@@ -1,15 +1,17 @@
 .promo {
-    margin-top: 30px; /* Добавляем отступ сверху */
+    margin-top: 30px;
     margin-bottom: 63px;
 }
 
 .promo__content {
-    border-radius: 59px;
+    border-radius: 60px;
     background-color: #9E0082;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 68px 120px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .promo__title {
@@ -17,7 +19,7 @@
     font-size: 48px;
     line-height: 1.25;
     letter-spacing: -0.05em;
-    color: black;
+    color: white;
     margin-bottom: 24px;
 }
 
@@ -25,14 +27,12 @@
     font-size: 22px;
     line-height: 1.5;
     letter-spacing: -0.03em;
-    color: black;
+    color: white;
     margin-right: 24px; /* Добавляем отступ справа */
 }
 
 .promo__image {
-    max-width: 30%;
-    border: 30px solid black;
-    border-radius: 10px;
+    max-width: 50%;
 }
 
 .promo__btn {

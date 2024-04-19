@@ -8,11 +8,10 @@ import '../registration/register.css';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-
 const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const  history = useNavigate();
+    const history = useNavigate();
     const [showRegistrationForm, setShowRegistrationForm] = useState(false);
     const [error, setError] = useState('');
 
@@ -29,7 +28,6 @@ const LoginForm = ({ onLogin }) => {
     };
 
     const handleLoginButtonClick = () => {
-
         axios.post(`${apiUrl}/token/`, {
             email: email,
             password: password
@@ -40,7 +38,7 @@ const LoginForm = ({ onLogin }) => {
             onLogin(token);
             setError('');
             // Выполняем редирект на страницу личного кабинета
-            history('/personal');
+            history('/');
         })
         .catch(error => {
             console.error('Ошибка входа:', error);
@@ -68,10 +66,10 @@ const LoginForm = ({ onLogin }) => {
                         placeholder="Пароль"
                     />
                     <button type="button" onClick={handleLoginButtonClick} className="login-form-button">Войти</button>
+                    {error && <p className="error-message">{error}</p>}
                 </form>
                 <button onClick={handleRegisterClick} className="register-button">Зарегистрироваться</button>
-
-                <button onClick={handleClick} className="close-btn">х</button>
+                <button onClick={handleClick} className="close-btn">x</button>
                 {showRegistrationForm && (
                     <div className="login-modal">
                         <div className="login-modal-content">
@@ -85,4 +83,3 @@ const LoginForm = ({ onLogin }) => {
 };
 
 export default LoginForm;
-
