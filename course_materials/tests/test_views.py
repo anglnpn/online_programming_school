@@ -209,10 +209,8 @@ class CourseTestCase(APITestCase):
         Тестирование ошибки создания курса
         """
         data = {
-            'name_course': 'Test',
-            'description': 'Test',
-            'author': 'self.user.id',
-            'price': 1000,
+            'description': 1,
+            'price': "0",
         }
         self.client.force_authenticate(user=self.user)
 
