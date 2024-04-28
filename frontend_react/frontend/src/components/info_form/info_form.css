@@ -1,0 +1,23 @@
+.footer {
+background-color: rgba(51, 51, 51, 0.8);
+color: #fff;
+
+position: fixed;
+bottom: 0;
+width: 100%;
+z-index: 1000;
+}
+
+
+
+.contact-info {
+text-align: center;
+}
+
+.contact-info h4 {
+margin-top: 0;
+}
+
+.contact-info p {
+margin: 5px 0;
+}
